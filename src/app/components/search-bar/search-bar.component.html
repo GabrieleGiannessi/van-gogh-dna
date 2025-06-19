@@ -1,0 +1,15 @@
+<div class="shadow p-3 bg-white rounded-5">
+    <button class="btn border-0 me-2">
+        <i class="bi bi-search text-dark"></i>
+    </button>
+    <input type="text" [formControl]="searchControl" class="search-bar-container text-secondary" placeholder="Search..."
+        (input)="showOverlay.set(true)" />
+    @if (showOverlay()) {
+    <div class="mt-2">
+        @for (item of recentSearches(); track $index) {
+        <app-search-overlay [search]="item" [(currentSearch)]="currentSearch"
+            [(overlay)]="showOverlay"></app-search-overlay>
+        }
+    </div>
+    }
+</div>
