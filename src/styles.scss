@@ -2,3 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap' as *;
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
