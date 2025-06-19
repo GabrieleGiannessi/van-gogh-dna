@@ -13,4 +13,5 @@ export class CarouselComponent {
 
     searchBarService = inject(SearchBarService);
     showOverlay = this.searchBarService.showOverlay;
+    recentSearches = this.searchBarService.recentSearches;
 }

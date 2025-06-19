@@ -13,7 +13,7 @@ export class SearchBarComponent {
 
   searchBarService = inject(SearchBarService)
   
-  recentSearches = computed(() => this.searchBarService.recentSearches());
+  recentSearches = model.required<string[]>();
   showOverlay = model.required<boolean>();
 
   currentSearch = model<string>('');

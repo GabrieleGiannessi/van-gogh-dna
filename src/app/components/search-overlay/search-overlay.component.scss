@@ -1,4 +1,7 @@
 .overlay-container:hover {
-  background-color: black;
-  color: white;
+  background-color: black !important;
+
+  > .overlay-content {
+    color: white !important;
+  }
 }
