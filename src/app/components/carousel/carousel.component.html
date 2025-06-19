@@ -1,5 +1,5 @@
-<div class="container-fluid position-relative w-100 h-100 flex-grow-1 ">
-    <ngb-carousel>
+<div class="position-relative">
+    <ngb-carousel (click)="showOverlay.set(false)">
         <ng-template ngbSlide>
             <div class="picsum-img-wrapper">
                 <img src="assets/images/slide1.jpg" class="img-fluid" alt="Random first slide" />
@@ -16,6 +16,5 @@
             </div>
         </ng-template>
     </ngb-carousel>
-
-
+    <app-search-bar [(showOverlay)]="showOverlay" />
 </div>

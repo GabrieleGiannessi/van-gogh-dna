@@ -2,6 +2,7 @@
 
 /* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap' as *;
+@use 'bootstrap-icons/font/bootstrap-icons' as *;
 
 html {
   scroll-behavior: smooth;

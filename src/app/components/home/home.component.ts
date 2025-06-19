@@ -3,7 +3,7 @@ import { SearchBarComponent } from "../search-bar/search-bar.component";
 import { CarouselComponent } from "../carousel/carousel.component";
 @Component({
   selector: 'app-home',
-  imports: [SearchBarComponent, CarouselComponent],
+  imports: [CarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

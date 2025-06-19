@@ -1,6 +1,7 @@
-import { Component, effect, model, signal } from '@angular/core';
+import { Component, computed, effect, inject, model, signal } from '@angular/core';
 import { SearchOverlayComponent } from "../search-overlay/search-overlay.component";
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SearchBarService } from '../../services/search-bar.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,11 +11,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class SearchBarComponent {
 
-  showOverlay = model<boolean>(false);
-  recentSearches = signal<string[]>([`"Angular,`, `"TypeScript"`, `"Web Development"`, `"Frontend Frameworks"`]);
+  searchBarService = inject(SearchBarService)
+  
+  recentSearches = computed(() => this.searchBarService.recentSearches());
+  showOverlay = model.required<boolean>();
 
   currentSearch = model<string>('');
-
   searchControl = new FormControl<string>('')
 
   constructor() { 
