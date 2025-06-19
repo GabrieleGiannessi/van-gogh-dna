@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, model, signal } from '@angular/cor
 import { SearchOverlayComponent } from "../search-overlay/search-overlay.component";
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SearchBarService } from '../../services/search-bar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -11,6 +12,7 @@ import { SearchBarService } from '../../services/search-bar.service';
 })
 export class SearchBarComponent {
 
+  route = inject(Router);
   searchBarService = inject(SearchBarService)
   
   recentSearches = model.required<string[]>();
@@ -23,6 +25,12 @@ export class SearchBarComponent {
     effect(() => {
       this.searchControl.setValue(this.currentSearch(), { emitEvent: false });
     });
+  }
+
+  handleSearch() { 
+    this.route.navigate(['home'], { queryParams: { s: this.searchControl.value}})
+    this.searchControl.reset(); 
+    this.currentSearch.set('');
   }
 
 }
