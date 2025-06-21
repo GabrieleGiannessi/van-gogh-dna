@@ -26,7 +26,7 @@ export class AuthService {
             email: user?.email || '',
             username: user?.name || '',
             savedDocuments: [],
-            role: 'user' // Default role, can be changed based on your logic
+            role: 'user' 
           })
         }).catch(err => {
           console.error('Error loading user profile', err);

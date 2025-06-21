@@ -6,9 +6,10 @@ import { DocumentListComponent } from "../../components/document-list/document-l
 import { ActivatedRoute } from '@angular/router';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { AuthService } from '../../services/auth.service';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 @Component({
   selector: 'app-home',
-  imports: [CarouselComponent, DocumentListComponent, FooterComponent],
+  imports: [CarouselComponent, DocumentListComponent, FooterComponent, NavbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
