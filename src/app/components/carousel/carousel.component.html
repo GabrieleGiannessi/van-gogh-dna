@@ -1,20 +1,12 @@
 <div class="position-relative">
     <ngb-carousel (click)="showOverlay.set(false)">
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img src="assets/images/slide1.jpg" class="img-fluid" alt="Random first slide" />
-            </div>
-        </ng-template>
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img src="assets/images/slide2.jpg" class="img-fluid" alt="Random second slide" />
-            </div>
-        </ng-template>
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img src="assets/images/slide3.jpg" class="img-fluid" alt="Random third slide" />
-            </div>
-        </ng-template>
+        @for (img of images(); track img; let i = $index) {
+            <ng-template ngbSlide [id]="i.toString()">
+                <div class="picsum-img-wrapper">
+                    <img [src]="img" class="img-fluid" alt="Random slide {{ $index + 1 }}" />
+                </div>
+            </ng-template>
+        }
     </ngb-carousel>
     <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
 </div>
