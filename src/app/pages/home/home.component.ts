@@ -19,7 +19,7 @@ export class HomeComponent {
   authService = inject(AuthService);
 
   currentUser = effect(() => {
-    console.log('Current user:', this.authService.currentUser());
+    console.log('Current user:', this.authService.getUserProfile());
   })
 
   get hasSParam(): boolean {
