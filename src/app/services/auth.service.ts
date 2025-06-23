@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { AuthConfig, JwksValidationHandler, OAuthService, TokenResponse } from 'angular-oauth2-oidc';
+import { OAuthService, TokenResponse } from 'angular-oauth2-oidc';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { oAuthConfig } from '../app.config';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class AuthService {
 
   oAuthService = inject(OAuthService)
   
-  currentUser = signal<User | null>(null);
+  currentUser = signal<UserInterface | null>(null);
 
   constructor() {
     this.oAuthService.configure(oAuthConfig);
@@ -60,7 +61,7 @@ export class AuthService {
   }
 }
 
-export interface User {
+export interface UserInterface {
   email: string
   username: string
   savedDocuments: string[]

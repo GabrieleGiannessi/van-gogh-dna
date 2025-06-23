@@ -1,0 +1,48 @@
+/* Background styles */
+.background-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 100vh;
+}
+
+/* Card styles */
+.registration-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border: none;
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Logo styles */
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-image {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Form styles */
+.registration-form {
+  width: 100%;
+}
+
+.submit-button {
+  padding: 0.5rem;
+  font-weight: 500;
+}

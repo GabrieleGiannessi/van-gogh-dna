@@ -1,32 +1,80 @@
-<div class="login-page-wrapper position-relative d-flex align-items-center py-4">
-    <!-- Background Image -->
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1;">
-        <img src="assets/images/background-login.jpg" alt="Background" class="w-100 h-100 object-fit-cover"
-            style="min-height: 100vh;">
+<div class="login-page-wrapper position-relative d-flex align-items-center justify-content-center py-4">
+  <!-- Background Image -->
+  <div class="background-cover">
+    <img src="assets/images/background-login.jpg" 
+         alt="Background" 
+         class="background-image"
+         priority>
+  </div>
+
+  <!-- Registration Card -->
+  <div class="registration-card">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img ngSrc="assets/images/favicon-van-gogh.png" 
+           width="300" 
+           height="450" 
+           alt="Logo" 
+           class="logo-image img-fluid"
+           priority>
     </div>
 
-    <div class="bg-white rounded-5 shadow-lg border-0 p-3 m-auto" style="background-color: rgba(255, 255, 255, 0.95);">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <img ngSrc="assets/images/favicon-van-gogh.png" width="300" height="450" alt="Logo" class="img-fluid mb-3"
-                style="max-width: 150px;" priority>
-        </div>
+    <!-- Registration Form -->
+    <form [formGroup]="registerForm" 
+          (ngSubmit)="completeRegistration()" 
+          class="registration-form">
+      
+      <!-- Email Field -->
+      <div class="form-group mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" 
+               id="email" 
+               formControlName="email" 
+               class="form-control" 
+               required>
+      </div>
 
+      <!-- Password Field -->
+      <div class="form-group mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" 
+               id="password" 
+               formControlName="password" 
+               class="form-control" 
+               required>
+      </div>
 
+      <!-- Confirm Password Field -->
+      <div class="form-group mb-3">
+        <label for="confirmPassword" class="form-label">Conferma Password</label>
+        <input type="password" 
+               id="confirmPassword" 
+               formControlName="confirmPassword" 
+               class="form-control" 
+               required>
+      </div>
 
-        <form [formGroup]="registerForm" (ngSubmit)="completeRegistration()">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" formControlName="email" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" formControlName="password" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="username" id="username" formControlName="username" class="form-control" required />
-            </div>
-            <button type="submit" class="btn btn-primary w-100 my-2">Registra</button>
-        </form>
-    </div>
+      <!-- Username Field -->
+      <div class="form-group mb-4">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" 
+               id="username" 
+               formControlName="username" 
+               class="form-control" 
+               required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" 
+              class="btn btn-primary w-100 submit-button">
+        @if (isRegistrating()) {
+          <span class="spinner-border spinner-border-sm" 
+                role="status" 
+                aria-hidden="true"></span>
+        } @else {
+          Registrati
+        }
+      </button>
+    </form>
+  </div>
 </div>
