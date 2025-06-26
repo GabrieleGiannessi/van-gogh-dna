@@ -10,50 +10,37 @@ import { oAuthConfig } from '../app.config';
 export class AuthService {
 
   oAuthService = inject(OAuthService)
-  
-  currentUser = signal<UserInterface | null>(null);
+
+  currAccessToken = signal<string | null>(null);
 
   constructor() {
     this.oAuthService.configure(oAuthConfig);
-    this.oAuthService.tokenValidationHandler = new JwksValidationHandler(); // Usa JWKS
-    this.oAuthService.loadDiscoveryDocumentAndTryLogin();
+    this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oAuthService.setStorage(localStorage);
+
+    this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      if (this.oAuthService.hasValidAccessToken()) {
+        const token: string = this.getAccessToken();
+        this.currAccessToken.set(token)
+      }
+    });
   }
 
   loginWithGoogle() {
-    this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (!this.oAuthService.hasValidAccessToken()) {
-        this.oAuthService.initCodeFlow();
-      } else {
-        this.oAuthService.loadUserProfile().then((user: any) => {
-          this.currentUser.set({
-            email: user?.email || '',
-            username: user?.name || '',
-            savedDocuments: [],
-            recentResearches: [],
-            role: 'user'
-          })
-        }).catch(err => {
-          console.error('Error loading user profile', err);
-        });
-      }
-    });
-    console.log(this.oAuthService.getIdentityClaims());
+    this.oAuthService.initCodeFlow();
   }
 
-  loginWithCredentials(username: string, password: string): Promise<TokenResponse>{
+  loginWithCredentials(username: string, password: string): Promise<TokenResponse> {
     return this.oAuthService.fetchTokenUsingPasswordFlow(username, password)
   }
 
   logout() {
-    this.oAuthService.logOut();
+    this.currAccessToken.set(null)
+    this.oAuthService.logOut()
   }
 
-  isLoggedIn(): boolean {
-    return this.oAuthService.hasValidAccessToken();
-  }
-
-  getUserProfile(): any {
-    return this.oAuthService.getIdentityClaims();
+  getUserProfileEmail(): any {
+    return this.oAuthService.getIdentityClaims()['email'];
   }
 
   getAccessToken(): string {

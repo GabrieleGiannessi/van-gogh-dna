@@ -23,22 +23,7 @@ export class LoginComponent {
   loginWithCredentials() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      this.authService.loginWithCredentials(email, password).then(() => {
-        return this.authService.oAuthService.loadUserProfile().then((user: any) => {
-          this.authService.currentUser.set({
-            email: user?.email || '',
-            username: user?.name || '',
-            savedDocuments: [],
-            recentResearches: [],
-            role: 'user'
-          });
-        });
-      })
-        .catch(err => {
-          console.error('Login fallito', err);
-          throw err;
-        });
-    };
-  }
+    }
 
+  }
 }

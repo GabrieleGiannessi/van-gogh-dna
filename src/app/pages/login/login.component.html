@@ -8,7 +8,7 @@
   </div>
 
   <!-- Login Card -->
-  <div class="login-card">
+  <div class="login-card shadow border-0 rounded-4 p-3 w-100">
     <!-- Logo and Header -->
     <div class="header-container text-center mb-4">
       <img ngSrc="assets/images/favicon-van-gogh.png" 
@@ -55,9 +55,11 @@
         Login
       </button>
 
+      <div class="text-center mb-3">Oppure</div>
+
       <!-- Google Login Button -->
       <button type="button" 
-              class="btn btn-outline-secondary w-100 google-button"
+              class="btn btn-outline-danger w-100 google-button"
               (click)="authService.loginWithGoogle()">
         <i class="bi bi-google me-2"></i>
         Login with Google

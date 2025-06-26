@@ -18,10 +18,6 @@ export class HomeComponent {
   route = inject(ActivatedRoute);
   authService = inject(AuthService);
 
-  currentUser = effect(() => {
-    console.log('Current user:', this.authService.getUserProfile());
-  })
-
   get hasSParam(): boolean {
     return this.route.snapshot.queryParamMap.has('s');
   }
