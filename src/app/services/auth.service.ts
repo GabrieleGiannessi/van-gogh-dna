@@ -1,7 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { OAuthService, TokenResponse } from 'angular-oauth2-oidc';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { AuthConfig, OAuthService, TokenResponse } from 'angular-oauth2-oidc';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
-import { oAuthConfig } from '../app.config';
+import { googleOAuthConfig, keycloakAuthConfig } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -13,39 +13,72 @@ export class AuthService {
 
   currAccessToken = signal<string | null>(null);
 
+  debug = effect(() => console.log(this.currAccessToken()))
+  claims = effect(() => { 
+    if (this.currAccessToken() !== null){ 
+      console.log (this.oAuthService.getIdentityClaims())
+    }
+  })
+
   constructor() {
-    this.oAuthService.configure(oAuthConfig);
-    this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oAuthService.setStorage(localStorage);
+    const lastProvider = localStorage.getItem('lastProvider');
+
+    if (lastProvider === 'google') {
+      this.configure(googleOAuthConfig);
+    } else if (lastProvider === 'keycloak') {
+      this.configure(keycloakAuthConfig);
+    } else {
+      return;
+    }
 
     this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oAuthService.hasValidAccessToken()) {
-        const token: string = this.getAccessToken();
-        this.currAccessToken.set(token)
+        this.currAccessToken.set(this.oAuthService.getAccessToken());
       }
     });
   }
 
-  loginWithGoogle() {
-    this.oAuthService.initCodeFlow();
+  configure(config: AuthConfig) {
+    this.oAuthService.configure(config);
+    this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oAuthService.setStorage(localStorage);
   }
 
-  loginWithCredentials(username: string, password: string): Promise<TokenResponse> {
-    return this.oAuthService.fetchTokenUsingPasswordFlow(username, password)
+  loginWithGoogle() {
+    this.configure(googleOAuthConfig);
+    localStorage.setItem('lastProvider', 'google');
+    this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      if (!this.oAuthService.hasValidAccessToken()) {
+        this.oAuthService.initLoginFlow(); // redirect solo se non autenticato
+      } else {
+        this.currAccessToken.set(this.oAuthService.getAccessToken())
+      }
+    });
   }
+
+  loginWithKeycloak() {
+    this.configure(keycloakAuthConfig);
+    localStorage.setItem('lastProvider', 'keycloak');
+    this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      if (!this.oAuthService.hasValidAccessToken()) {
+        this.oAuthService.initLoginFlow(); // redirect solo se non autenticato
+      } else {
+        this.currAccessToken.set(this.oAuthService.getAccessToken())
+      }
+    });
+  }
+
 
   logout() {
     this.currAccessToken.set(null)
     this.oAuthService.logOut()
   }
 
-  getUserProfileEmail(): any {
-    return this.oAuthService.getIdentityClaims()['email'];
+  get name() {
+    const claims: any = this.oAuthService.getIdentityClaims();
+    return claims ? claims.name : null;
   }
 
-  getAccessToken(): string {
-    return this.oAuthService.getAccessToken();
-  }
 }
 
 export interface UserInterface {

@@ -1,14 +1,25 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { AuthService } from './auth.service';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchBarService {
 
-  // This service can be used to manage search-related logic, such as fetching recent searches from a server or managing search state.
+  authService = inject(AuthService);
+  databaseService = inject(DatabaseService);
+  
   showOverlay = signal<boolean>(false);
-  recentSearches = signal<string[]>([`"Angular"`, `"TypeScript"`, `"Web Development"`, `"Frontend Frameworks"`]);
+  recentSearches = signal<string[]>([]);
+  
+    constructor() {
+        this.loadRecentSearches();
+    } 
+
+  loadRecentSearches() {
+  }
 
 
-  constructor() {}
+
 }

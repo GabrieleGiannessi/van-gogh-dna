@@ -19,6 +19,10 @@ export class DatabaseService {
   registerUser(email: string, password: string, username: string): Observable<UserInterface> {
     return this.http.post<UserInterface>(`${this.apiUrl}/users`, { email, password, username });
   }
+
+  loadRecentSearches(email: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/users/${email}/recent_searches`);
+  }
 }
 
 export interface documentType {

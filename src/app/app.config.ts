@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthConfig, provideOAuthClient } from 'angular-oauth2-oidc';
 
-export const oAuthConfig: AuthConfig = {
+export const googleOAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
   strictDiscoveryDocumentValidation: false, 
   clientId: '1080961024913-0cksvg2n701h08k1jkbrk8e5fi6h7qs7.apps.googleusercontent.com',
@@ -14,8 +14,21 @@ export const oAuthConfig: AuthConfig = {
   scope: 'openid profile email',
   showDebugInformation: true,
   oidc: true,
+  disablePKCE: false,
   dummyClientSecret: "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"
 }
+
+export const keycloakAuthConfig: AuthConfig = {
+  issuer: 'http://localhost:8080/realms/master',
+  redirectUri: window.location.origin + '/home',
+  strictDiscoveryDocumentValidation: false, 
+  clientId: 'angular-client',
+  responseType: 'code',
+  scope: 'openid profile email',
+  showDebugInformation: true, 
+  disablePKCE: false,
+};
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
