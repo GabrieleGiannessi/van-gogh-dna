@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserInterface } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +14,7 @@ export class DatabaseService {
   getIndicizedDocuments(query: string): Observable<documentType[]> {
     return this.http.get<documentType[]>(`${this.apiUrl}/search?q=${query}`);
   }
-
-  registerUser(email: string, password: string, username: string): Observable<UserInterface> {
-    return this.http.post<UserInterface>(`${this.apiUrl}/users`, { email, password, username });
-  }
-
-  loadRecentSearches(email: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/users/${email}/recent_searches`);
-  }
+  
 }
 
 export interface documentType {

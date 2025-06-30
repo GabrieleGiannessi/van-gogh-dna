@@ -15,37 +15,19 @@
                 </div>
             }
         } @else {
-            @if (isLogged()) {
-                <div class="container">
-                    <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
-                        <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
-                        <h1 class="text-body-emphasis">Bentornato <span class="text-primary">{{ userClaims() }}</span></h1>
-                        <p class="col-lg-8 mx-auto fs-5 text-muted">
-                            Inizia la tua ricerca
-                        </p>
-                    </div>
-                </div>
-                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-            } @else {
                 <div class="container">
                     <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
                         <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
                         <p class="col-lg-8 mx-auto fs-5 text-muted">
                             Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
                             pubblicazioni, studi critici e certificazioni ufficiali.
-                            Accedi facilmente ai documenti, confronta le immagini in alta risoluzione e approfondisci ogni opera
-                            attraverso fonti autorevoli.
                         </p>
                         <div class="d-inline-flex gap-2 mb-5">
-                            <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-                                <i class="bi bi-arrow-right me-3"></i>
-                                Scopri ora
-                            </button>
+                                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
                         </div>
                     </div>
                 </div>
             }
-        }
     </main>
     
     <app-footer/>
