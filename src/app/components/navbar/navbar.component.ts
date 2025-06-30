@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [NgbCollapseModule],
+  imports: [NgbCollapseModule, NgbDropdownModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -25,5 +25,11 @@ export class NavbarComponent {
 
   logout() {
     this.authService.logout()
+  }
+  loginWithGoogle() {
+    this.authService.loginWithGoogle()
+  }
+  loginWithKeycloak() {
+    this.authService.loginWithKeycloak()
   }
 }

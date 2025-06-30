@@ -14,22 +14,29 @@ export class SearchBarComponent {
 
   route = inject(Router);
   searchBarService = inject(SearchBarService)
-  
+
   recentSearches = model.required<string[]>();
   showOverlay = model.required<boolean>();
 
   currentSearch = model<string>('');
   searchControl = new FormControl<string>('')
 
-  constructor() { 
+  constructor() {
     effect(() => {
       this.searchControl.setValue(this.currentSearch(), { emitEvent: false });
     });
   }
 
-  handleSearch() { 
-    this.route.navigate(['home'], { queryParams: { s: this.searchControl.value}})
-    this.searchControl.reset(); 
+  handleSearch() {
+    if (this.searchControl.value !== '') {
+      this.route.navigate(['home'], { queryParams: { s: this.searchControl.value } })
+    }
+    return
+  }
+
+  clearCurrentSearch(event: Event) {
+    event.stopPropagation()
+    this.searchControl.reset();
     this.currentSearch.set('');
   }
 

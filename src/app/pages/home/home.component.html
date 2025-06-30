@@ -1,51 +1,52 @@
-<div class="container-fluid d-flex flex-column align-items-center justify-content-center p-0">
+<div class="container-fluid d-flex flex-column min-vh-100 p-0">
     <div class="container-fluid p-0 m-0">
         <app-navbar />
     </div>
-    @if (hasSParam) {
-    @defer () {
-    <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-    <app-document-list />
-    }
-    @loading {
-    <div class="d-flex w-100 flex-column align-items-center justify-content-center">
-        <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
-    </div>
-        }
-    }@else{
-        @if (isLogged()) {
-            <div class="container">
-                <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
-                    <img src="assets/images/favicon-van-gogh.png" alt="Logo"
-                        class="d-inline-block align-top">
-                    <h1 class="text-body-emphasis"> Bentornato <span class="text-primary">{{ userClaims() }}</span></h1>
-                    <p class="col-lg-8 mx-auto fs-5 text-muted">
-                        Inizia la tua ricerca
-                    </p>
+    
+    <main class="flex-grow-1 pt-5 mt-5">
+        @if (hasSParam) {
+            @defer () {
+                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
+                <app-document-list />
+            }
+            @loading {
+                <div class="d-flex w-100 flex-column align-items-center justify-content-center">
+                    <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
                 </div>
-            </div>
-            <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
+            }
         } @else {
-            <div class="container">
-                <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
-                    <img src="assets/images/favicon-van-gogh.png" alt="Logo"
-                        class="d-inline-block align-top">
-                    <p class="col-lg-8 mx-auto fs-5 text-muted">
-                        Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
-                        pubblicazioni, studi critici e certificazioni ufficiali.
-                        Accedi facilmente ai documenti, confronta le immagini in alta risoluzione e approfondisci ogni opera
-                        attraverso fonti autorevoli.
-                    </p>
-                    <div class="d-inline-flex gap-2 mb-5">
-                        <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-                            <i class="bi bi-arrow-right me-3"></i>
-                            Scopri ora
-                        </button>
+            @if (isLogged()) {
+                <div class="container">
+                    <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
+                        <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
+                        <h1 class="text-body-emphasis">Bentornato <span class="text-primary">{{ userClaims() }}</span></h1>
+                        <p class="col-lg-8 mx-auto fs-5 text-muted">
+                            Inizia la tua ricerca
+                        </p>
                     </div>
                 </div>
-            </div>
+                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
+            } @else {
+                <div class="container">
+                    <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
+                        <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
+                        <p class="col-lg-8 mx-auto fs-5 text-muted">
+                            Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
+                            pubblicazioni, studi critici e certificazioni ufficiali.
+                            Accedi facilmente ai documenti, confronta le immagini in alta risoluzione e approfondisci ogni opera
+                            attraverso fonti autorevoli.
+                        </p>
+                        <div class="d-inline-flex gap-2 mb-5">
+                            <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+                                <i class="bi bi-arrow-right me-3"></i>
+                                Scopri ora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
         }
-    }
+    </main>
+    
+    <app-footer/>
 </div>
-
-<app-footer/>

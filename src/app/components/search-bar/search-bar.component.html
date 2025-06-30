@@ -1,27 +1,39 @@
-<div class="shadow-lg p-3 bg-white rounded-5">
-  <div class="d-flex align-items-center">
+<div class="shadow-lg p-3 bg-white rounded-5 mx-auto mb-4" style="max-width: 600px;">
+  <div class="d-flex align-items-center position-relative">
     <button class="btn border-0 me-2 flex-shrink-0" (click)="handleSearch()">
-      <i class="bi bi-search text-dark"></i>
+      <i class="bi bi-search text-dark fs-5"></i>
     </button>
     <input 
       type="text" 
       [formControl]="searchControl" 
-      class="search-bar-container text-secondary flex-grow-1 border-0" 
-      placeholder="Search..."
+      class="form-control border-0 shadow-none flex-grow-1 fs-5 py-2 pe-4"
+      placeholder="Cerca..."
       (input)="showOverlay.set(true)" 
       (focus)="showOverlay.set(true)"
       (keyup.enter)="handleSearch()"
+      style="background: transparent;"
     />
+    @if (searchControl.value) {
+      <button 
+        class="btn btn-link position-absolute end-0 me-3 p-0 border-0 bg-transparent" 
+        (click)="clearCurrentSearch($event)"
+        style="right: 2em;" 
+      >
+        <i class="bi bi-x-lg text-muted fs-5"></i>
+      </button>
+    }
   </div>
 
   @if (showOverlay() && recentSearches().length > 0) {
-    <div class="mt-2">
+    <div class="mt-2 border-top pt-2">
+      <small class="text-muted ms-2 mb-1 d-block">Ricerche recenti:</small>
       @for (item of recentSearches(); track $index) {
         <app-search-overlay 
           [search]="item" 
           [(currentSearch)]="currentSearch"
           [(overlay)]="showOverlay" 
           [(recentSearches)]="recentSearches"
+          class="d-block"
         ></app-search-overlay>
       }
     </div>
