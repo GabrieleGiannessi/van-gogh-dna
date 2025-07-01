@@ -11,24 +11,31 @@ import { DocumentCardComponent } from "../document-card/document-card.component"
 })
 export class DocumentListComponent {
 
-  route = inject(ActivatedRoute);
-  databaseService = inject(DatabaseService);
+  route = inject(ActivatedRoute)
+  databaseService = inject(DatabaseService)
 
-  search = signal<string>('');
-  documents = signal<documentType[]>([]);
+  search = signal<string>('')
+  docs = signal<documentType[]>([])
 
   constructor() {
     this.route.queryParamMap.subscribe(params => {
       const search = params.get('s');
-      if (search) this.search.set(search);
+      if (search){
+        this.search.set(search)
+        this.queryDocuments()
+      } 
     });
   }
 
-  searchQuery = effect(() => {
-    this.databaseService.getIndicizedDocuments(this.search()).subscribe(docs => {
-      this.documents.set(docs);
-    });
-  })
+  queryDocuments(){
+    this.databaseService.getIndicizedDocuments(this.search()).subscribe(
+      (docs) => {
+        this.docs.set(docs)
+      }
+    )
+  }
+
+  
 
   
 }

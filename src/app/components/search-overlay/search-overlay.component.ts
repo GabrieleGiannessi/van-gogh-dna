@@ -1,4 +1,6 @@
-import { Component, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
+import { SearchBarService } from '../../services/search-bar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-overlay',
@@ -7,18 +9,23 @@ import { Component, model } from '@angular/core';
   styleUrl: './search-overlay.component.scss'
 })
 export class SearchOverlayComponent {
+
+  searchBarService = inject(SearchBarService)
+  router = inject (Router)
+
   search = model.required<string>();
   overlay = model.required<boolean>();
-  recentSearches = model.required<string[]>();
   currentSearch = model.required<string>();
 
   handleClick() {
     this.overlay.set(false);
     this.currentSearch.set(this.search())
+    this.searchBarService.moveResearchToTop(this.search())
+    this.router.navigate(['home'], { queryParams: { s: this.search() } })
   }
 
   handleDeleteSearch() { 
     this.overlay.set(true);
-    this.recentSearches.set(this.recentSearches().filter(search => search !== this.search()));
+    this.searchBarService.removeResearch(this.search())
   }
 }

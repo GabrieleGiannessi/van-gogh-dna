@@ -18,7 +18,6 @@ export class DatabaseService {
 }
 
 export interface documentType {
-  filename: string;
-  path: string
-  text: string;
+  title: string
+  payload: string
 }

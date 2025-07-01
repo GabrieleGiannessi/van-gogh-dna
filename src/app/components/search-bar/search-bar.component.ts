@@ -29,7 +29,9 @@ export class SearchBarComponent {
 
   handleSearch() {
     if (this.searchControl.value !== '') {
-      this.route.navigate(['home'], { queryParams: { s: this.searchControl.value } })
+      const research = this.searchControl.value!
+      this.searchBarService.addResearch(research)
+      this.route.navigate(['home'], { queryParams: { s: research } })
     }
     return
   }
@@ -38,6 +40,7 @@ export class SearchBarComponent {
     event.stopPropagation()
     this.searchControl.reset();
     this.currentSearch.set('');
+    this.showOverlay.set(false)
   }
 
 }
