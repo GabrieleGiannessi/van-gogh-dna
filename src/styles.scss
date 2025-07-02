@@ -8,3 +8,11 @@ html {
   scroll-behavior: smooth;
   height: 100%;
 }
+
+:root {
+  --navbar-height: 3.5em;
+}
+
+body {
+  padding-top: var(--navbar-height);
+}

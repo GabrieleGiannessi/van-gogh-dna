@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, computed, HostListener, inject } from '@angular/core';
 import { SearchBarComponent } from "../../components/search-bar/search-bar.component";
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +17,11 @@ export class HomeComponent {
   authService = inject(AuthService)
 
   showOverlay = this.searchBarService.showOverlay;
-  recentSearches = this.searchBarService.recentSearches;
+  searches = this.searchBarService.searches;
+
+  get recentSearches() {
+    return this.searches().slice(0, 5);
+  }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
