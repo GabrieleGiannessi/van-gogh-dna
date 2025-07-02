@@ -2,31 +2,39 @@
     <div class="container-fluid p-0 m-0">
         <app-navbar />
     </div>
-    
+
     <main class="flex-grow-1 pt-5 mt-5">
         @if (hasSParam) {
-            @defer () {
-                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-                <app-document-list />
-            }
-            @loading {
-                <div class="d-flex w-100 flex-column align-items-center justify-content-center">
-                    <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
-                </div>
-            }
+        @defer () {
+        <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
+        <app-document-list />
+        }
+        @loading {
+        <div class="d-flex w-100 flex-column align-items-center justify-content-center">
+            <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
+        </div>
+        }
         } @else {
-                <div class="container-fluid">
-                    <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3"> 
-                        <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
-                        <p class="col-lg-8 mx-auto fs-5 text-muted">
-                            Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
-                            pubblicazioni, studi critici e certificazioni ufficiali.
-                        </p>
-                                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-                    </div>
-                </div>
-            }
+        <div class="container-fluid">
+            <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3">
+                <img src="assets/images/favicon-van-gogh.png" alt="Logo" class="d-inline-block align-top">
+                @if (authService.isLogged()) {
+                <h1 class="text-body-emphasis">
+                    Bentornato,
+                    <span class="badge bg-primary fs-4 align-middle">
+                        {{ authService.username() }}
+                    </span>
+                </h1>
+                }
+                <p class="col-lg-8 mx-auto fs-5 text-muted">
+                    Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
+                    pubblicazioni, studi critici e certificazioni ufficiali.
+                </p>
+                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
+            </div>
+        </div>
+        }
     </main>
-    
-    <app-footer/>
+
+    <app-footer />
 </div>
