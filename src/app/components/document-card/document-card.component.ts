@@ -12,7 +12,7 @@ export class DocumentCardComponent implements OnInit {
   databaseService = inject(DatabaseService)
   pages = signal<number[]>([])
   
-  ngOnInit(){
+  ngOnInit(){     
     this.getPages()
   }
 

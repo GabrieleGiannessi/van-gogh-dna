@@ -1,7 +1,8 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseService, documentType } from '../../services/database.service';
 import { DocumentCardComponent } from "../document-card/document-card.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-document-list',
@@ -11,8 +12,10 @@ import { DocumentCardComponent } from "../document-card/document-card.component"
 })
 export class DocumentListComponent {
 
+  router = inject(Router)
   route = inject(ActivatedRoute)
   databaseService = inject(DatabaseService)
+  authService = inject(AuthService)
 
   search = signal<string>('')
   docs = signal<documentType[]>([])
