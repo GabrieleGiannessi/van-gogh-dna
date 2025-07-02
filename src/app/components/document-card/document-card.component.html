@@ -1,1 +1,28 @@
-{{ document().title}} : {{ document().payload }}
+<div class="d-flex rounded-4 p-2 m-2 shadow">
+    <!-- Immagine anteprima -->
+    <div class="d-flex p-1 m-2">
+        <img [src]="'http://localhost:8000/preview/' + document().doc_id"
+       alt="Anteprima PDF"
+       width="150" height="200"
+       class="img-fluid d-none d-sm-block"
+       (error)="onImgError($event)"
+  />
+    </div>
+    <!-- Titolo e bottoni per anteprima pdf e download -->
+    <div class="d-flex flex-column">
+        <div class="flex-grow-1 p-2 mx-2">
+            <span class="text-muted fs-5"> {{ document().title }}</span>
+            Pagine: @for (page of pages(); track $index) {
+                {{ page }}
+            }
+        </div>
+        <div class="d-flex flex-wrap ms-auto">
+            <button class="btn document-button border-0 rounded-circle me-2" (click)="download()">
+                <i class="bi bi-download text-primary fs-5"></i>
+            </button>
+            <button class="btn document-button border-0 rounded-circle me-2" (click)="showPdf()">
+                <i class="bi bi-eye text-primary fs-5"></i>
+            </button>
+        </div>
+    </div>
+</div>

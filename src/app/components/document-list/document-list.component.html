@@ -1,5 +1,9 @@
-<div class="w-100 justify-content-start align-items-start p-2">
+
+<div class="text-muted fs-5 ps-3">
     Risultati della ricerca per: <span class="text-primary">{{ search() }}</span>
+</div>
+
+<div class="d-flex flex-wrap w-100 mt-3 px-3">
     <div class="d-flex flex-wrap">
         @for (item of docs(); track $index) {
             <app-document-card [document]="item"></app-document-card>

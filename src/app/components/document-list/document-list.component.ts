@@ -20,14 +20,14 @@ export class DocumentListComponent {
   constructor() {
     this.route.queryParamMap.subscribe(params => {
       const search = params.get('s');
-      if (search){
+      if (search) {
         this.search.set(search)
         this.queryDocuments()
-      } 
+      }
     });
   }
 
-  queryDocuments(){
+  queryDocuments() {
     this.databaseService.getIndicizedDocuments(this.search()).subscribe(
       (docs) => {
         this.docs.set(docs)
@@ -35,7 +35,7 @@ export class DocumentListComponent {
     )
   }
 
-  
 
-  
+
+
 }
