@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,8 +8,7 @@ import { Observable } from 'rxjs';
 export class DatabaseService {
 
   private apiUrl = 'http://127.0.0.1:8000'; // base URL dell'API FastAPI
-
-  constructor(private http: HttpClient) { }
+  http = inject (HttpClient)
 
   getIndicizedDocuments(query: string): Observable<documentType[]> {
     return this.http.get<documentType[]>(`${this.apiUrl}/search?q=${query}`);
@@ -34,11 +33,34 @@ export class DatabaseService {
     return this.http.get<pageType[]>(`${this.apiUrl}/documents/${fileId}`)
   }
 
+  uploadDocument(file: File, document: Partial<documentType>): Observable<HttpEvent<any>> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    if (document.title) {
+      formData.append('title', document.title);
+    }
+    if (document.sub) {
+      formData.append('sub', document.sub);
+    }
+    if (document.author) {
+      formData.append('author', document.author);
+    }
+
+    return this.http.post<any>(`${this.apiUrl}/upload/`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
 }
 
 export interface documentType {
   doc_id: string
+  sub: string
   title: string
+  filename: string 
+  author: string
   download_link: string
   pages: pageType[]
 }

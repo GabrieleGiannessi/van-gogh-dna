@@ -1,40 +1,58 @@
-
 <main class="flex-grow-1 pt-5">
-    <div class="container-fluid position-relative d-flex align-items-center justify-content-center bg-white shadow rounded-4 w-75 mt-4"
-        [ngClass]="{'highlight': isDragOver}"
-        style="overflow: hidden;"
-        (dragover)="onDragOver($event)"
-        (dragleave)="onDragLeave($event)"
-        (drop)="onDrop($event)">
-        <!-- input file invisibile -->
-        <input type="file" 
-             class="position-absolute top-0 start-0 w-100 h-100"
-             style="opacity:0; cursor:pointer; z-index:2;"
-             (change)="onFileSelected($event)" />
-        <!-- container con scritta e icona -->
-        <div class="d-flex flex-column align-items-center p-5" style="z-index:1;">
-           <i class="bi bi-file-earmark-plus fs-4"></i>
-           @if (isSelected()) {
-            <span class="d-none d-sm-inline-block text-muted text-center pb-4"> {{ filename() }} </span> 
-           }@else {
-               <span class="d-none d-sm-inline-block text-muted text-center pb-4">Trascina il file o clicca in questo riquadro per inserire il tuo documento </span>
-           }
+    <form [formGroup]="form" (submit)="onSubmit()">
+        <div class="container-fluid position-relative d-flex align-items-center justify-content-center bg-white shadow rounded-4 w-75 mt-4"
+            [ngClass]="{'highlight': isDragOver}" style="overflow: hidden;" (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <!-- input file invisibile -->
+            <input type="file" class="position-absolute top-0 start-0 w-100 h-100"
+                style="opacity:0; cursor:pointer; z-index:2;" (change)="onFileSelected($event)" />
+            <!-- container con scritta e icona -->
+            <div class="d-flex flex-column align-items-center p-5" style="z-index:1;">
+                <i class="bi bi-file-earmark-plus fs-4"></i>
+                @if (isSelected()) {
+                <span class="d-none d-sm-inline-block text-muted text-center pb-4"> {{ filename() }} </span>
+                }@else if (form.get('filename')?.touched && form.get('filename')?.invalid) {
+                <span class="d-none d-sm-inline-block text-danger text-center pb-4"> L' inserimento del documento è
+                    obbligatorio </span>
+                }
+                @else {
+                <span class="d-none d-sm-inline-block text-muted text-center pb-4">Trascina il file o clicca in questo
+                    riquadro per inserire il tuo documento </span>
+                }
+            </div>
         </div>
-    </div>
 
-    <!-- @if (isSelected()) {} -->
-    <div class="container-fluid mt-4 shadow bg-white rounded-4 p-4">
-        <form>
+        <div class="container-fluid mt-4 shadow bg-white w-75 rounded-4 p-4">
             <div class="mb-3">
                 <label for="documentTitle" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="documentTitle" name="title" placeholder="Inserisci il titolo del documento">
+                <input type="text" class="form-control" id="documentTitle" name="title" formControlName="title"
+                    placeholder="Inserisci il titolo del documento">
+                @if (form.get('title')?.touched && form.get('title')?.invalid) {
+                <div class="text-danger small mt-1">
+                    Il titolo è obbligatorio.
+                </div>
+                }
             </div>
             <div class="mb-3">
                 <label for="documentAuthor" class="form-label">Autore</label>
-                <input type="text" class="form-control" id="documentAuthor" name="author" placeholder="Inserisci l'autore del documento">
+                <input type="text" class="form-control" id="documentAuthor" name="author" formControlName="author"
+                    placeholder="Inserisci l'autore del documento">
+                @if (form.get('author')?.touched && form.get('author')?.invalid) {
+                <div class="text-danger small mt-1">
+                    L'autore è obbligatorio.
+                </div>
+                }
             </div>
-            <button type="submit" class="btn btn-primary">Carica documento</button>
-        </form>
-    </div>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                @if (showSpinner()) {
+                <div class="spinner-border spinner-border-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                Caricamento 
+                }
+                Carica documento
+            </button>
+        </div>
+    </form>
 
 </main>

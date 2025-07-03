@@ -9,10 +9,12 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 export class AuthService {
 
   oAuthService = inject(OAuthService)
+  
   currAccessToken = signal<string | null>(null);
   isLogged = computed(() => this.currAccessToken() !== null)
   claims = computed(() => this.isLogged() ? this.oAuthService.getIdentityClaims() : null)
   username = computed(() => this.claims() !== null ? this.claims()!["preferred_username"] : null)
+  subject = computed(() => this.claims() !== null ? this.claims()!["sub"] : null)
 
   constructor() {
     this.oAuthService.configure(config);
