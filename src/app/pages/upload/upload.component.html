@@ -22,9 +22,19 @@
         </div>
     </div>
 
-    <div class="container-fluid mt-4 shadow bg-white rounded-4">
-        <!-- Titolo, autore e bottone per upload -->
-         
+    <!-- @if (isSelected()) {} -->
+    <div class="container-fluid mt-4 shadow bg-white rounded-4 p-4">
+        <form>
+            <div class="mb-3">
+                <label for="documentTitle" class="form-label">Titolo</label>
+                <input type="text" class="form-control" id="documentTitle" name="title" placeholder="Inserisci il titolo del documento">
+            </div>
+            <div class="mb-3">
+                <label for="documentAuthor" class="form-label">Autore</label>
+                <input type="text" class="form-control" id="documentAuthor" name="author" placeholder="Inserisci l'autore del documento">
+            </div>
+            <button type="submit" class="btn btn-primary">Carica documento</button>
+        </form>
     </div>
 
 </main>

@@ -14,8 +14,6 @@ export class AuthService {
   claims = computed(() => this.isLogged() ? this.oAuthService.getIdentityClaims() : null)
   username = computed(() => this.claims() !== null ? this.claims()!["preferred_username"] : null)
 
-  debug = effect (() => console.log(this.username()))
-
   constructor() {
     this.oAuthService.configure(config);
     this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
