@@ -3,6 +3,7 @@
     <a class="navbar-brand" (click)="router.navigateByUrl('/home')">
       <span class="ms-2 d-none d-sm-inline" style="cursor: pointer;">VanGoghDna</span>
     </a>
+    <!-- Pulsante menu in caso di schermo piccolo -->
     <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-expanded="false"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -19,11 +20,21 @@
         </li>
         <div class="d-flex align-items-center">
           @if (authService.isLogged()) {
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <button class="btn btn-outline-danger ms-2" (click)="logout()">
               <i class="bi bi-box-arrow-right me-1"></i>
               Logout
             </button>
+          </li> -->
+          <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
+            <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
+              <i class="bi bi-list fs-5 text-primary"></i>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="menuDropdown">
+              <button ngbDropdownItem (click)="this.router.navigateByUrl(`docs/${authService.subject()}`)">I miei
+                documenti</button>
+              <button ngbDropdownItem class="text-danger" (click)="logout()"> Logout</button>
+            </div>
           </li>
           }@else {
           <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
@@ -32,10 +43,9 @@
             </a>
             <div class="text-center" ngbDropdownMenu aria-labelledby="loginDropdown">
               <span class="text-secondary fs-6 p-1 p-1"> Sei admin? Autenticati con</span>
-              <button class="btn btn-warning w-75 border-0 m-2 p-2" NgbDropdownButtonItem
-                (click)="login()">
+              <button class="btn btn-warning w-75 border-0 m-2 p-2" NgbDropdownButtonItem (click)="login()">
                 <i class="bi bi-shield-lock me-1"></i> Keycloak</button>
-              </div>
+            </div>
           </li>
           }
         </div>
