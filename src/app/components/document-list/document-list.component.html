@@ -1,36 +1,17 @@
-<div class="container-fluid">
-    <div class="d-flex flex-row-reverse p-2 align-items-center">
-        @if (authService.isLogged()) {
-        <div class="flex-shrink-0">
-            <button
-                class="btn btn-outline-primary border-0 rounded-pill d-flex align-items-center justify-content-center gap-2"
-                (click)="router.navigateByUrl('upload')">
-                <span class="d-none d-lg-inline-block">Aggiungi documento</span>
-                <i class="bi bi-plus-lg fs-5"></i>
-            </button>
-        </div>
-        }
-        <span class="flex-grow-1 text-muted fs-5 ps-3">
-            Risultati della ricerca per: <span class="text-primary">{{ search() }}</span>
-        </span>
-    </div>
-
-    @defer () {
-    <div class="d-flex flex-wrap w-100 mt-3 px-3">
-        @for (item of docs(); track $index) {
-        <app-document-card [document]="item"></app-document-card>
-        }
-    </div>
-    } @loading (after 100ms; minimum 1s) {
-    <div class="d-flex align-items-center justify-content-center" style="min-height: 40vh;">
-        <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
-            <span class="visually-hidden">Caricamento...</span>
-        </div>
-    </div>
-    } @error {
-    <div class="w-100 mt-3 px-3 text-danger text-center">
-        Errore nel caricamento dei documenti.
-    </div>
+@defer () {
+<div class="d-flex flex-wrap w-100 mt-3 px-3">
+    @for (item of docs(); track $index) {
+    <app-document-card [document]="item"></app-document-card>
     }
-
 </div>
+} @loading (after 100ms; minimum 1s) {
+<div class="d-flex align-items-center justify-content-center" style="min-height: 40vh;">
+    <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Caricamento...</span>
+    </div>
+</div>
+} @error {
+<div class="w-100 mt-3 px-3 text-danger text-center">
+    Errore nel caricamento dei documenti.
+</div>
+}

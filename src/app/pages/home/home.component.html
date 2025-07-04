@@ -1,34 +1,51 @@
-    <main class="flex-grow-1 pt-5">
-        @if (hasSParam) {
-        @defer () {
-        <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-        <app-document-list />
-        }
-        @loading {
-        <div class="d-flex w-100 flex-column align-items-center justify-content-center">
-            <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
+<main class="flex-grow-1 pt-5">
+    @if (hasSParam) {
+    @defer () {
+    <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" [(currentSearch)]="currentSearch" />
+    <div class="container-fluid">
+    <div class="d-flex flex-row-reverse p-2 align-items-center">
+        @if (authService.isLogged()) {
+        <div class="flex-shrink-0">
+            <button
+                class="btn btn-outline-primary border-0 rounded-pill d-flex align-items-center justify-content-center gap-2"
+                (click)="router.navigateByUrl('upload')">
+                <span class="d-none d-lg-inline-block">Aggiungi documento</span>
+                <i class="bi bi-plus-lg fs-5"></i>
+            </button>
         </div>
         }
-        } @else {
-        <div class="container-fluid">
-            <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3">
-                <app-lottie/>
-                @if (authService.isLogged()) {
-                <h1 class="text-body-emphasis">
-                    Bentornato,
-                    <span class="badge bg-primary fs-4 align-middle">
-                        {{ authService.username() }}
-                    </span>
-                </h1>
-                }
-                <p class="col-lg-8 mx-auto fs-5 text-muted">
-                    Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
-                    pubblicazioni, studi critici e certificazioni ufficiali.
-                </p>
-                <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" />
-            </div>
+        <span class="flex-grow-1 text-muted fs-5 ps-3">
+            Risultati della ricerca per: <span class="text-primary">{{ currentSearch() }}</span>
+        </span>
+    </div>
+    <app-document-list [docs]="queryDocs()"/>
+    </div>
+    }
+    @loading {
+    <div class="d-flex w-100 flex-column align-items-center justify-content-center">
+        <span class="text-secondary text-center fs-4 py-3">Nessun risultato trovato!</span>
+    </div>
+    }
+    } @else {
+    <div class="container-fluid">
+        <div class="ps-5 pe-5 pb-5 text-center bg-body-white rounded-3">
+            <app-lottie />
+            @if (authService.isLogged()) {
+            <h1 class="text-body-emphasis">
+                Bentornato,
+                <span class="badge bg-primary fs-4 align-middle">
+                    {{ authService.username() }}
+                </span>
+            </h1>
+            }
+            <p class="col-lg-8 mx-auto fs-5 text-muted">
+                Scopri, esplora, e consulta una collezione unica di dipinti di Vincent van Gogh, accompagnata da
+                pubblicazioni, studi critici e certificazioni ufficiali.
+            </p>
+            <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches" [(currentSearch)]="currentSearch" />
         </div>
-        }
-    </main>
+    </div>
+    }
+</main>
 
 <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

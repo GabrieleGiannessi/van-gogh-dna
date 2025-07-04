@@ -18,7 +18,7 @@ export class SearchBarComponent {
   recentSearches = model.required<string[]>();
   showOverlay = model.required<boolean>();
 
-  currentSearch = model<string>('');
+  currentSearch = model.required<string>();
   searchControl = new FormControl<string>('')
 
   constructor() {
