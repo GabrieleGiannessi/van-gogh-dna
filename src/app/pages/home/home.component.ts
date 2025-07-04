@@ -5,9 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchBarService } from '../../services/search-bar.service';
 import { AuthService } from '../../services/auth.service';
 import { ToastsComponent } from "../../components/toasts/toasts.component";
+import { LottieLogoComponent } from "../../components/lottie/lottie.component";
 @Component({
   selector: 'app-home',
-  imports: [DocumentListComponent, SearchBarComponent, ToastsComponent],
+  imports: [DocumentListComponent, SearchBarComponent, ToastsComponent, LottieLogoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
