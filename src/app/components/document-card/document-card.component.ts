@@ -1,5 +1,6 @@
 import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
 import { DatabaseService, documentType } from '../../services/database.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-document-card',
   imports: [],
@@ -8,6 +9,9 @@ import { DatabaseService, documentType } from '../../services/database.service';
 })
 export class DocumentCardComponent implements OnInit {
 
+  authService = inject(AuthService)
+
+  
   document = input.required<documentType>()
   databaseService = inject(DatabaseService)
   pages = signal<number[]>([])

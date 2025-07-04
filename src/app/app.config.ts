@@ -3,6 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { provideLottieOptions } from 'ngx-lottie';
+import player from 'lottie-web';
 import { AuthConfig, provideOAuthClient } from 'angular-oauth2-oidc';
 
 export const config: AuthConfig = {
@@ -21,7 +23,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideOAuthClient()
+    provideOAuthClient(),
+    provideLottieOptions({
+      player: () => player,
+    })
   ],
 };
 

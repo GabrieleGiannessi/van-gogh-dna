@@ -22,7 +22,7 @@ export class DatabaseService {
 
   openPdfInNewTab(fileId: string) {
     const url = `${this.apiUrl}/download/${fileId}?download=false`;
-    window.open(url, '_blank');
+    window.open(url, '_blank'); 
   }
 
   showPreviewFile (fileId: string){ 
@@ -30,7 +30,7 @@ export class DatabaseService {
   }
 
   getDocumentPages(fileId: string): Observable<pageType[]>{
-    return this.http.get<pageType[]>(`${this.apiUrl}/documents/${fileId}`)
+    return this.http.get<pageType[]>(`${this.apiUrl}/documents/${fileId}/pages`)
   }
 
   uploadDocument(file: File, document: Partial<documentType>): Observable<HttpEvent<any>> {

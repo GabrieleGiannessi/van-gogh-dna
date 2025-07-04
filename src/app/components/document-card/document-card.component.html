@@ -1,19 +1,22 @@
 <div class="d-flex rounded-4 p-2 m-2 shadow">
     <!-- Immagine anteprima -->
     <div class="d-flex p-1 m-2">
-        <img [src]="'http://localhost:8000/preview/' + document().doc_id"
-       alt="Anteprima PDF"
-       width="150" height="200"
-       class="img-fluid d-none d-sm-block"
-       (error)="onImgError($event)"
-  />
+        @defer (on viewport) {
+        <img [src]="'http://localhost:8000/preview/' + document().doc_id" alt="Anteprima PDF" width="150" height="200"
+            class="img-fluid d-none d-sm-block" (error)="onImgError($event)" />
+        } @placeholder {
+        <div class="placeholder-glow" style="max-width: 150px; max-height: 200px;">
+            <div class="placeholder bg-muted w-100 h-100 rounded"></div>
+        </div>
+        }
     </div>
-    <!-- Titolo e bottoni per anteprima pdf e download -->
+
+    <!-- Titolo e bottoni -->
     <div class="d-flex flex-column">
-        <div class="flex-grow-1 p-2 mx-2">
-            <span class="text-muted fs-5"> {{ document().title }}</span>
-            Pagine: @for (page of pages(); track $index) {
-                {{ page }}
+        <div class="d-flex flex-row-reverse p-2">
+            <span class="flex-grow-1 text-muted fs-5">{{ document().title }}</span>
+            @if (authService.isLogged() && document().sub === authService.subject()) {
+            <button>Prova</button>
             }
         </div>
         <div class="d-flex flex-wrap ms-auto">

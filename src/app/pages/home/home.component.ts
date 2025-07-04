@@ -4,9 +4,10 @@ import { DocumentListComponent } from "../../components/document-list/document-l
 import { ActivatedRoute } from '@angular/router';
 import { SearchBarService } from '../../services/search-bar.service';
 import { AuthService } from '../../services/auth.service';
+import { ToastsComponent } from "../../components/toasts/toasts.component";
 @Component({
   selector: 'app-home',
-  imports: [DocumentListComponent, SearchBarComponent],
+  imports: [DocumentListComponent, SearchBarComponent, ToastsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

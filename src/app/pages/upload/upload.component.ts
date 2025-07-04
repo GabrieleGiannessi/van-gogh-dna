@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-upload',
@@ -14,6 +15,7 @@ export class UploadComponent {
 
   databaseService = inject(DatabaseService)
   authService = inject(AuthService)
+  toastService = inject(ToastService)
 
   isDragOver = signal<boolean>(false)
   file = signal<File | null>(null)
@@ -25,6 +27,9 @@ export class UploadComponent {
     title: new FormControl ('', [Validators.required, Validators.minLength(5)]),
     author: new FormControl ('', [Validators.required, Validators.minLength(5)])
   })
+
+  @ViewChild('success') successTemplate!: TemplateRef<any>;
+  @ViewChild('error') errorTemplate!: TemplateRef<any>;
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -82,8 +87,13 @@ export class UploadComponent {
           await new Promise(res => setTimeout(res, MIN_SPINNER_TIME - elapsed));
         }
         this.showSpinner.set(false);
-        console.log('Upload riuscito:', response);
+        // console.log('Upload riuscito:', response);
         // this.successMessage.set('File caricato con successo. Indicizzazione in corso.');
+        // Supponendo che tu abbia un TemplateRef chiamato 'successTemplate' nel tuo componente:
+        // Torna indietro prima
+        // Mostra il toast dopo un breve delay per assicurarsi che la navigazione sia avvenuta
+          window.history.back();
+          this.toastService.show({ template: this.successTemplate, classname: 'bg-success text-light', delay: 10000 });
       },
       error: async (err) => {
         const elapsed = Date.now() - start;
@@ -92,7 +102,7 @@ export class UploadComponent {
         }
         this.showSpinner.set(false);
         console.error('Errore durante l\'upload:', err);
-        // this.errorMessage.set('Errore durante il caricamento del file.');
+        this.toastService.show({ template: this.successTemplate, classname: 'bg-success text-light', delay: 10000 });
       }
     });
   }
