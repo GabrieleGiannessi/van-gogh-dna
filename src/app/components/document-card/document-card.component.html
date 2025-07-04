@@ -3,7 +3,7 @@
     <div class="d-flex p-1 m-2">
         @defer (on viewport) {
         <img [src]="'http://localhost:8000/preview/' + document().doc_id" alt="Anteprima PDF" width="150" height="200"
-            class="img-fluid d-none d-sm-block" (error)="onImgError($event)" />
+            class="img-fluid d-none d-sm-block"/>
         } @placeholder {
         <div class="placeholder-glow" style="max-width: 150px; max-height: 200px;">
             <div class="placeholder bg-muted w-100 h-100 rounded"></div>
@@ -12,18 +12,26 @@
     </div>
 
     <!-- Titolo e bottoni -->
-    <div class="d-flex flex-column">
-        <div class="d-flex flex-row-reverse p-2">
+    <div class="d-flex flex-column flex-grow-1 justify-content-between p-2">
+        <div class="d-flex align-items-center mb-2">
             <span class="flex-grow-1 text-muted fs-5">{{ document().title }}</span>
             @if (authService.isLogged() && document().sub === authService.subject()) {
-            <button>Prova</button>
+                <div ngbDropdown>
+                    <button class="btn document-button border-0 rounded-circle ms-2" ngbDropdownToggle>
+                        <i class="bi bi-three-dots-vertical text-primary fs-5"></i>
+                    </button>
+                    <div ngbDropdownMenu>
+                        <button ngbDropdownItem >Modifica</button>
+                        <button ngbDropdownItem >Elimina</button>
+                    </div>
+                </div>
             }
         </div>
-        <div class="d-flex flex-wrap ms-auto">
+        <div class="d-flex flex-row mt-auto">
             <button class="btn document-button border-0 rounded-circle me-2" (click)="download()">
                 <i class="bi bi-download text-primary fs-5"></i>
             </button>
-            <button class="btn document-button border-0 rounded-circle me-2" (click)="showPdf()">
+            <button class="btn document-button border-0 rounded-circle" (click)="showPdf()">
                 <i class="bi bi-eye text-primary fs-5"></i>
             </button>
         </div>

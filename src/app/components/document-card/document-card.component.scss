@@ -5,3 +5,7 @@
 .document-button:active {
    background-color: var(--bs-gray);     
 }
+
+button[ngbDropdownToggle]::after {
+  display: none !important;
+}

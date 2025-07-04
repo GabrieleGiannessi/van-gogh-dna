@@ -1,9 +1,10 @@
-import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { DatabaseService, documentType } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-document-card',
-  imports: [],
+  imports: [NgbDropdownModule],
   templateUrl: './document-card.component.html',
   styleUrl: './document-card.component.scss'
 })
@@ -37,10 +38,6 @@ export class DocumentCardComponent implements OnInit {
 
   showPreview() {
     this.databaseService.showPreviewFile(this.document().doc_id)
-  }
-
-  onImgError($event: Event) {
-    ($event.target as HTMLImageElement).src = 'assets/images/placeholder.webp';
   }
 
   getPages(){

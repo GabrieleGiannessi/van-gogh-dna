@@ -1,0 +1,10 @@
+// src/styles/_custom-bootstrap.scss
+
+$primary: #ffa500;
+
+
+@use "bootstrap/scss/bootstrap" with (
+  $primary: $primary
+);
+@use 'bootstrap-icons/font/bootstrap-icons';
+
