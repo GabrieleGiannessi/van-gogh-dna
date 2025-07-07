@@ -1,6 +1,5 @@
 <main class="flex-grow-1 pt-5">
     @if (hasSParam) {
-
     <div class="container-fluid mt-3">
         <app-search-bar [(showOverlay)]="showOverlay" [(recentSearches)]="recentSearches"
             [(currentSearch)]="currentSearch" />
@@ -19,7 +18,19 @@
                 Risultati della ricerca per: <span class="text-primary">{{ route.snapshot.queryParams['s'] }}</span>
             </span>
         </div>
-        <app-document-list [docs]="queryDocs()" />
+        @if (queryDocs.isLoading()) {
+            <div class="d-flex align-items-center justify-content-center" style="min-height: 40vh;">
+        <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+            <span class="visually-hidden">Caricamento...</span>
+        </div>
+    </div>
+        } @else if (queryDocs.hasValue() && queryDocs.value().length > 0) {
+            <app-document-list [(docs)]="queryDocs.value" />
+        } @else if (queryDocs.hasValue() && queryDocs.value().length === 0){
+         <div class="d-flex align-items-center justify-content-center" style="min-height: 40vh;">
+            Nessun risultato trovato!
+        </div>   
+        }
     </div>
     } @else {
     <div class="container-fluid">

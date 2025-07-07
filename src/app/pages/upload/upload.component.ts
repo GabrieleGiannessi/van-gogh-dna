@@ -92,7 +92,6 @@ export class UploadComponent {
         // Supponendo che tu abbia un TemplateRef chiamato 'successTemplate' nel tuo componente:
         // Torna indietro prima
         // Mostra il toast dopo un breve delay per assicurarsi che la navigazione sia avvenuta
-          window.history.back();
           this.toastService.show({ template: this.successTemplate, classname: 'bg-success text-light', delay: 10000 });
       },
       error: async (err) => {

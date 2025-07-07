@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
 import { DatabaseService, documentType } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,13 +11,13 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 export class DocumentCardComponent implements OnInit {
 
   authService = inject(AuthService)
-
-  
   document = input.required<documentType>()
   databaseService = inject(DatabaseService)
   pages = signal<number[]>([])
+
+  deleted = output <string> ()
   
-  ngOnInit(){     
+  ngOnInit() {
     this.getPages()
   }
 
@@ -40,10 +40,14 @@ export class DocumentCardComponent implements OnInit {
     this.databaseService.showPreviewFile(this.document().doc_id)
   }
 
-  getPages(){
+  getPages() {
     this.databaseService.getDocumentPages(this.document().doc_id).subscribe(pages => {
       this.pages.set(pages.map((p: { page: number }) => p.page));
     });
+  }
+
+  deleteDoc() {
+    this.deleted.emit(this.document().doc_id)
   }
 
 }

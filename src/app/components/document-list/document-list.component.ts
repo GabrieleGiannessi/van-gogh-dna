@@ -12,6 +12,24 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DocumentListComponent {
 
-  docs = input.required<documentType[]>()
+  databaseService = inject (DatabaseService)
 
+  docs = model.required<documentType[]>()
+  toggleSpinner = signal<boolean> (false)
+
+  onDelete($id: string){
+    this.toggleSpinner.set(true)
+    this.databaseService.deleteDocument($id).subscribe({
+      next: () => {
+        this.docs.update(docs => docs.filter((doc) => doc.doc_id !== $id))
+        //mettere spinner e toast a fine operazione
+        this.toggleSpinner.set(false)
+      },
+      error: (err) => {
+        console.log(err)
+        //mettere spinner e toast a fine operazione
+        this.toggleSpinner.set(false)
+      }
+    })
+  }
 }

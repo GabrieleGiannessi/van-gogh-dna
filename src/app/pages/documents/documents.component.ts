@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, effect, inject, resource, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { DatabaseService } from '../../services/database.service';
 import { firstValueFrom } from 'rxjs';
@@ -15,9 +15,7 @@ export class DocumentsComponent {
   authService = inject(AuthService)
   databaseService = inject(DatabaseService)
 
-  userDocuments = computed(() => {
-  return this.databaseService.documents().filter(
+  userDocuments = signal(this.databaseService.documents().filter(
     doc => doc.sub === this.authService.subject()
-  );
-});
+  ));
 }

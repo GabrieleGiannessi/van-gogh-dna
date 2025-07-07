@@ -21,15 +21,10 @@ export class SearchBarComponent {
   currentSearch = model.required<string>();
   searchControl = new FormControl<string>('')
 
-  constructor() {
-    effect(() => {
-      this.searchControl.setValue(this.currentSearch(), { emitEvent: false });
-    });
-  }
-
   handleSearch() {
     if (this.searchControl.value !== '') {
       const research = this.searchControl.value!
+      this.currentSearch.set(research)
       this.searchBarService.addResearch(research)
       this.route.navigate(['home'], { queryParams: { s: research } })
     }
