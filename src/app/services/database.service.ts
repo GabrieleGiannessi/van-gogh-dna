@@ -20,10 +20,10 @@ export class DatabaseService {
   } 
 
   getDocsBySubject(sub: string): Observable<documentType[]> {
-    return this.http.get<documentType[]>(`${this.apiUrl}/documents/${sub}`);
+    return this.http.get<documentType[]>(`${this.apiUrl}/documents/sub/${sub}`);
   }
 
-  getIndicizedDocuments(query: string): Observable<documentType[]> {
+  getDocsByQuery(query: string): Observable<documentType[]> {
     return this.http.get<documentType[]>(`${this.apiUrl}/search?q=${query}`);
   }
 

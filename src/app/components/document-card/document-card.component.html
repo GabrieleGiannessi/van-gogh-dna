@@ -1,39 +1,61 @@
-<div class="d-flex rounded-4 p-2 m-2 shadow">
+<div class="card h-100 shadow rounded-4 overflow-hidden">
+  <div class="row g-0 h-100">
+
     <!-- Immagine anteprima -->
-    <div class="d-flex p-1 m-2">
-        @defer (on viewport) {
-        <img [src]="'http://localhost:8000/preview/' + document().doc_id" alt="Anteprima PDF" width="150" height="200"
-            class="img-fluid d-none d-sm-block"/>
-        } @placeholder {
-        <div class="placeholder-glow" style="max-width: 150px; max-height: 200px;">
-            <div class="placeholder bg-muted w-100 h-100 rounded"></div>
+    <div class="col-auto d-none d-sm-block">
+      @defer {
+        <img [src]="'http://localhost:8000/preview/' + document().doc_id"
+             alt="Anteprima PDF"
+             width="150"
+             height="200"
+             class="img-fluid object-fit-cover" />
+      } @loading {
+        <div class="placeholder-glow" style="width: 150px; height: 200px;">
+          <span class="placeholder col-12 rounded-start" style="width: 150px; height: 200px;"></span>
         </div>
-        }
+      } @placeholder (minimum 500ms) {
+        <div class="placeholder-glow" style="width: 150px; height: 200px;">
+          <span class="placeholder col-12 rounded-start" style="width: 150px; height: 200px;"></span>
+        </div>
+      }
     </div>
 
-    <!-- Titolo e bottoni -->
-    <div class="d-flex flex-column flex-grow-1 justify-content-between p-2">
-        <div class="d-flex align-items-center mb-2">
-            <span class="flex-grow-1 text-muted fs-5">{{ document().title }}</span>
-            @if (authService.isLogged() && document().sub === authService.subject()) {
-                <div ngbDropdown>
-                    <button class="btn document-button border-0 rounded-circle ms-2" ngbDropdownToggle>
-                        <i class="bi bi-three-dots-vertical text-primary fs-5"></i>
-                    </button>
-                    <div ngbDropdownMenu>
-                        <button ngbDropdownItem >Modifica</button>
-                        <button ngbDropdownItem class="text-danger" (click)="deleteDoc()">Elimina</button>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="d-flex flex-row mt-auto">
-            <button class="btn document-button border-0 rounded-circle me-2" (click)="download()">
-                <i class="bi bi-download text-primary fs-5"></i>
+    <!-- Contenuto -->
+    <div class="col d-flex flex-column p-3">
+
+      <!-- Titolo e dropdown -->
+      <div class="d-flex align-items-start mb-2">
+        <h5 class="card-title flex-grow-1 mb-0 text-truncate">
+          {{ document().title }}
+        </h5>
+
+        @if (authService.isLogged() && document().sub === authService.subject()) {
+          <div ngbDropdown>
+            <button class="btn btn-sm p-0 ms-2 border-0 bg-transparent" ngbDropdownToggle>
+              <i class="bi bi-three-dots-vertical fs-5 text-secondary"></i>
             </button>
-            <button class="btn document-button border-0 rounded-circle" (click)="showPdf()">
-                <i class="bi bi-eye text-primary fs-5"></i>
-            </button>
-        </div>
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem>Modifica</button>
+              <button ngbDropdownItem class="text-danger" (click)="deleteDoc()">Elimina</button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Autore -->
+      <p class="card-subtitle mb-2 text-muted small">
+        Autore: {{ document().author }}
+      </p>
+
+      <!-- Pulsanti -->
+      <div class="mt-auto d-flex justify-content-end gap-2">
+        <button class="btn btn-outline-primary btn-sm rounded-circle" (click)="download()" title="Download">
+          <i class="bi bi-download"></i>
+        </button>
+        <button class="btn btn-outline-primary btn-sm rounded-circle" (click)="showPdf()" title="Visualizza">
+          <i class="bi bi-eye"></i>
+        </button>
+      </div>
     </div>
+  </div>
 </div>

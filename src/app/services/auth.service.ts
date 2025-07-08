@@ -1,7 +1,8 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthEvent, OAuthService } from 'angular-oauth2-oidc';
 import { config } from '../app.config';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+import { filter } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 export class AuthService {
 
   oAuthService = inject(OAuthService)
-  
+
   currAccessToken = signal<string | null>(null);
   isLogged = computed(() => this.currAccessToken() !== null)
   claims = computed(() => this.isLogged() ? this.oAuthService.getIdentityClaims() : null)
@@ -19,11 +20,26 @@ export class AuthService {
   constructor() {
     this.oAuthService.configure(config);
     this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+
     this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oAuthService.hasValidAccessToken()) {
-        this.currAccessToken.set(this.oAuthService.getAccessToken());
-      }
+      this.syncToken();
     });
+
+    this.oAuthService.events
+      .pipe(
+        filter((e: OAuthEvent) => e.type === 'token_received' || e.type === 'session_terminated')
+      )
+      .subscribe(() => {
+        this.syncToken();
+      });
+  }
+
+  private syncToken() {
+    if (this.oAuthService.hasValidAccessToken()) {
+      this.currAccessToken.set(this.oAuthService.getAccessToken());
+    } else {
+      this.currAccessToken.set(null);
+    }
   }
 
   login() {
@@ -32,5 +48,6 @@ export class AuthService {
 
   logout() {
     this.oAuthService.logOut()
+    this.currAccessToken.set(null)
   }
 }

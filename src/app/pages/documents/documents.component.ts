@@ -1,8 +1,9 @@
 import { Component, computed, effect, inject, resource, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { DatabaseService } from '../../services/database.service';
+import { DatabaseService, documentType } from '../../services/database.service';
 import { firstValueFrom } from 'rxjs';
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-documents',
@@ -15,7 +16,22 @@ export class DocumentsComponent {
   authService = inject(AuthService)
   databaseService = inject(DatabaseService)
 
-  userDocuments = signal(this.databaseService.documents().filter(
-    doc => doc.sub === this.authService.subject()
-  ));
+  // userDocuments = signal(this.databaseService.documents().filter(
+  //   doc => doc.sub === this.authService.subject()
+  // ));
+
+  toggleRefresh = signal<boolean>(false)
+  sub = computed (() => this.authService.subject())
+
+  userDocs = rxResource<documentType[], {refresh: boolean, sub: string}>({
+    request: () => ({ refresh: this.toggleRefresh(), sub: this.sub() }),
+    loader: ({request}) => {
+      return this.databaseService.getDocsBySubject(request.sub)
+    }
+  })
+
+  degub = effect(() => console.log(this.userDocs.value())
+)
+
+
 }

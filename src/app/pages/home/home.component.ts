@@ -38,7 +38,7 @@ export class HomeComponent {
   queryDocs = rxResource<documentType[], string>({
     request: () => this.currentSearch(),
     loader: ({ request }) => {
-      return this.databaseService.getIndicizedDocuments(request)
+      return this.databaseService.getDocsByQuery(request)
     }
   })
 

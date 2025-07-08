@@ -34,7 +34,6 @@ export class SearchBarComponent {
   clearCurrentSearch(event: Event) {
     event.stopPropagation()
     this.searchControl.reset();
-    this.currentSearch.set('');
     this.showOverlay.set(false)
   }
 

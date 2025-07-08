@@ -12,14 +12,14 @@
     <!-- Pulsante documenti e dropdown di login/logout -->
     <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page">
-            <i class="bi bi-file-earmark-text me-1"></i>
-            Documenti
-          </a>
-        </li>
         <div class="d-flex align-items-center">
           @if (authService.isLogged()) {
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page">
+              <i class="bi bi-file-earmark-text me-1"></i>
+              Documenti
+            </a>
+          </li>
           <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
             <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
               <i class="bi bi-list fs-5 text-primary"></i>
@@ -27,7 +27,7 @@
             <div ngbDropdownMenu aria-labelledby="menuDropdown">
               <button ngbDropdownItem (click)="this.router.navigateByUrl(`docs/${authService.subject()}`)">I miei
                 documenti</button>
-                <button ngbDropdownItem (click)="this.router.navigateByUrl(`upload`)">Carica documento</button>
+              <button ngbDropdownItem (click)="this.router.navigateByUrl(`upload`)">Carica documento</button>
               <button ngbDropdownItem class="text-danger" (click)="logout()"> Logout</button>
             </div>
           </li>

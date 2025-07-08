@@ -8,18 +8,14 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './document-card.component.html',
   styleUrl: './document-card.component.scss'
 })
-export class DocumentCardComponent implements OnInit {
+export class DocumentCardComponent {
 
   authService = inject(AuthService)
   document = input.required<documentType>()
   databaseService = inject(DatabaseService)
-  pages = signal<number[]>([])
-
   deleted = output <string> ()
-  
-  ngOnInit() {
-    this.getPages()
-  }
+
+  // pages = signal<number[]>([])
 
   download() {
     this.databaseService.downloadPdf(this.document().doc_id).subscribe(blob => {
@@ -40,11 +36,11 @@ export class DocumentCardComponent implements OnInit {
     this.databaseService.showPreviewFile(this.document().doc_id)
   }
 
-  getPages() {
-    this.databaseService.getDocumentPages(this.document().doc_id).subscribe(pages => {
-      this.pages.set(pages.map((p: { page: number }) => p.page));
-    });
-  }
+  // getPages() {
+  //   this.databaseService.getDocumentPages(this.document().doc_id).subscribe(pages => {
+  //     this.pages.set(pages.map((p: { page: number }) => p.page));
+  //   });
+  // }
 
   deleteDoc() {
     this.deleted.emit(this.document().doc_id)

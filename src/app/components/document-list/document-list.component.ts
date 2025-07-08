@@ -17,6 +17,8 @@ export class DocumentListComponent {
   docs = model.required<documentType[]>()
   toggleSpinner = signal<boolean> (false)
 
+  debug = effect(() => console.log(this.docs()), )
+  
   onDelete($id: string){
     this.toggleSpinner.set(true)
     this.databaseService.deleteDocument($id).subscribe({
