@@ -4,10 +4,11 @@ import { DatabaseService, documentType } from '../../services/database.service';
 import { firstValueFrom } from 'rxjs';
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ToastsComponent } from "../../components/toasts/toasts.component";
 
 @Component({
   selector: 'app-documents',
-  imports: [DocumentListComponent],
+  imports: [DocumentListComponent, ToastsComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss'
 })

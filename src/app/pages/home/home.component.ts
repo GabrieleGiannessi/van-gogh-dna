@@ -4,13 +4,13 @@ import { DocumentListComponent } from "../../components/document-list/document-l
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchBarService } from '../../services/search-bar.service';
 import { AuthService } from '../../services/auth.service';
-import { ToastsComponent } from "../../components/toasts/toasts.component";
 import { LottieLogoComponent } from "../../components/lottie/lottie.component";
 import { DatabaseService, documentType } from '../../services/database.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ToastsComponent } from "../../components/toasts/toasts.component";
 @Component({
   selector: 'app-home',
-  imports: [DocumentListComponent, SearchBarComponent, ToastsComponent, LottieLogoComponent],
+  imports: [DocumentListComponent, SearchBarComponent, LottieLogoComponent, ToastsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

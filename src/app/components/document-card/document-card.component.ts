@@ -1,7 +1,8 @@
-import { Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal, TemplateRef, ViewChild } from '@angular/core';
 import { DatabaseService, documentType } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'app-document-card',
   imports: [NgbDropdownModule],
@@ -11,12 +12,14 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 export class DocumentCardComponent {
 
   authService = inject(AuthService)
-  document = input.required<documentType>()
   databaseService = inject(DatabaseService)
-  deleted = output <string> ()
+  toastService = inject(ToastService)
+
+  document = input.required<documentType>()
+  deleted = output<string>()
 
   // pages = signal<number[]>([])
-
+  
   download() {
     this.databaseService.downloadPdf(this.document().doc_id).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);

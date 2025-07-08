@@ -1,7 +1,7 @@
 <main class="flex-grow-1 pt-5">
     <form [formGroup]="form" (submit)="onSubmit()">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-center bg-white shadow rounded-4 w-75 mt-4"
-            [ngClass]="{'highlight': isDragOver}" style="overflow: hidden;" (dragover)="onDragOver($event)"
+            [ngClass]="{'highlight': isDragOver()}" style="overflow: hidden;" (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
             <!-- input file invisibile -->
             <input type="file" class="position-absolute top-0 start-0 w-100 h-100"
@@ -48,10 +48,18 @@
                 <div class="spinner-border spinner-border-sm me-2" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                Caricamento 
+                Caricamento
                 }
                 Carica documento
             </button>
+            @if (progress() > 0 && progress() < 100) { 
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                        [style.width.%]="progress()" aria-valuemin="0" aria-valuemax="100">
+                        {{ progress() }}%
+                    </div>
+        </div>
+        }
         </div>
     </form>
 </main>

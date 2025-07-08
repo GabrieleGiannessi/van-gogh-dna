@@ -8,10 +8,10 @@ export interface Toast {
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  private readonly _toasts = signal<Toast[]>([]);
-  readonly toasts = this._toasts.asReadonly();
+	private readonly _toasts = signal<Toast[]>([]);
+	readonly toasts = this._toasts.asReadonly();
 
-  show(toast: Toast) {
+	show(toast: Toast) {
 		this._toasts.update((toasts) => [...toasts, toast]);
 	}
 
