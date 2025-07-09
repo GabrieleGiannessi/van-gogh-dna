@@ -1,10 +1,11 @@
-import { Component, inject, model } from '@angular/core';
+import { Component, effect, inject, input, model } from '@angular/core';
 import { SearchBarService } from '../../services/search-bar.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search-overlay',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './search-overlay.component.html',
   styleUrl: './search-overlay.component.scss'
 })
@@ -13,9 +14,12 @@ export class SearchOverlayComponent {
   searchBarService = inject(SearchBarService)
   router = inject (Router)
 
+  focused = input.required<boolean>()
   search = model.required<string>();
   overlay = model.required<boolean>();
   currentSearch = model.required<string>();
+
+  focusdebug = effect(() => console.log(`item ${this.search()}, focus ${this.focused()}`))
 
   handleClick() {
     this.overlay.set(false);

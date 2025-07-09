@@ -42,20 +42,6 @@ export class HomeComponent {
     }
   })
 
-  
-
-  // queryDocuments() {
-  //   this.databaseService.getIndicizedDocuments(this.currentSearch()).subscribe(
-  //     (docs) => {
-  //       this.queryDocs.set(this.databaseService.documents().filter((doc) => docs.includes(doc)))
-  //     }
-  //   )
-  // }
-
-
-
-
-
   get recentSearches() {
     return this.searches().slice(0, 5);
   }

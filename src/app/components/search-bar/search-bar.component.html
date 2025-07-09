@@ -11,6 +11,7 @@
       (input)="showOverlay.set(true)" 
       (focus)="showOverlay.set(true)"
       (keyup.enter)="handleSearch()"
+      (keydown)="handleKeydown($event)"
       style="background: transparent;"
     />
     @if (searchControl.value) {
@@ -30,6 +31,7 @@
       @for (item of recentSearches(); track $index) {
         <app-search-overlay 
           [search]="item" 
+          [focused]="$index === searchBarService.currentSelectedIndex"
           [(currentSearch)]="currentSearch"
           [(overlay)]="showOverlay" 
           class="d-block"

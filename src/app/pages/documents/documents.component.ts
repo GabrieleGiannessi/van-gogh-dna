@@ -18,10 +18,6 @@ export class DocumentsComponent {
   authService = inject(AuthService)
   databaseService = inject(DatabaseService)
 
-  // userDocuments = signal(this.databaseService.documents().filter(
-  //   doc => doc.sub === this.authService.subject()
-  // ));
-
   toggleRefresh = signal<boolean>(false)
   sub = computed (() => this.authService.subject())
 

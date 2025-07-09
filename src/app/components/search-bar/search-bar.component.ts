@@ -21,14 +21,38 @@ export class SearchBarComponent {
   currentSearch = model.required<string>();
   searchControl = new FormControl<string>('')
 
-  handleSearch() {
-    if (this.searchControl.value !== '') {
-      const research = this.searchControl.value!
-      this.currentSearch.set(research)
-      this.searchBarService.addResearch(research)
-      this.route.navigate(['home'], { queryParams: { s: research } })
+  handleSearch(): void {
+    const research = this.searchControl.value?.trim();
+    if (!research) return;
+
+    this.currentSearch.set(research);
+    this.searchBarService.registerResearch(research);
+    this.route.navigate(['home'], { queryParams: { s: research } });
+  }
+
+
+  handleKeydown($event: KeyboardEvent) {
+    const total = this.recentSearches().length
+    if ($event.key === 'ArrowUp') {
+      this.searchBarService.arrowUp()
+      $event.preventDefault();
     }
-    return
+
+    if ($event.key === 'ArrowDown') {
+      this.searchBarService.arrowDown()
+      $event.preventDefault();
+    }
+
+    if ($event.key === 'Enter') {
+      if (this.searchBarService.selectedIndex() >= 0 && this.searchBarService.selectedIndex() < total) {
+        this.searchControl.setValue(this.searchBarService.currentSelectedResearch)
+        this.searchBarService.currentSelectedIndex = -1
+        this.showOverlay.set(false)
+        this.handleSearch()
+      } else {
+        this.handleSearch();
+      }
+    }
   }
 
   clearCurrentSearch(event: Event) {
