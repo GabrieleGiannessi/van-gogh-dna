@@ -8,10 +8,10 @@
   } @else if (userDocs.hasValue() && userDocs.value().length > 0) {
   <app-document-list [(docs)]="userDocs.value" />
   } @else if (userDocs.hasValue() && userDocs.value().length === 0){
-  <div class="d-flex align-items-center justify-content-center" style="min-height: 40vh;">
-    Nessun hai pubblicato nessun documento!
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 40vh;">
+    <app-lottie [path]="'/assets/animations/No-results.json'" />
+    Non hai pubblicato nessun documento!
   </div>
-  <!-- Prossimamente inserire lottie per nessun risultato trovato -->
   }
 </div>
 

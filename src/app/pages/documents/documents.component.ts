@@ -5,10 +5,11 @@ import { firstValueFrom } from 'rxjs';
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ToastsComponent } from "../../components/toasts/toasts.component";
+import { LottieLogoComponent } from "../../components/lottie/lottie.component";
 
 @Component({
   selector: 'app-documents',
-  imports: [DocumentListComponent, ToastsComponent],
+  imports: [DocumentListComponent, ToastsComponent, LottieLogoComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss'
 })

@@ -1,0 +1,8 @@
+<ngb-toast #Toast
+    [class]="toast().classname" [autohide]="true" [delay]="toast().delay || 5000"
+    (hidden)="toastService.remove(toast())">
+    <div class="d-flex">
+        <ng-template [ngTemplateOutlet]="toast().template"></ng-template>
+        <button class="btn-close me-2 m-auto" (click)="hide()"></button>
+    </div>
+</ngb-toast>

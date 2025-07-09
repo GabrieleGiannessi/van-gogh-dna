@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 
@@ -8,14 +8,19 @@ import { LottieComponent, AnimationOptions } from 'ngx-lottie';
   templateUrl: './lottie.component.html',
   styleUrl: './lottie.component.scss'
 })
-export class LottieLogoComponent {
-  options: AnimationOptions = {
-    path: '/assets/animations/Vangogh-logo.json',
+export class LottieLogoComponent implements OnInit {
+
+  path = input.required<string>()
+
+  options!: AnimationOptions;
+  
+  ngOnInit(){
+   this.options =  {
+    path: this.path(),
     loop: false,
     autoplay: true
-  };
-
-  animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
   }
+  }
+
+  
 }
