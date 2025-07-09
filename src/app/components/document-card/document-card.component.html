@@ -35,7 +35,7 @@
               <i class="bi bi-three-dots-vertical fs-5 text-secondary"></i>
             </button>
             <div ngbDropdownMenu>
-              <button ngbDropdownItem>Modifica</button>
+              <button ngbDropdownItem (click)="router.navigateByUrl(`modify/${document().doc_id}`)">Modifica</button>
               <button ngbDropdownItem class="text-danger" (click)="deleteDoc()">Elimina</button>
             </div>
           </div>

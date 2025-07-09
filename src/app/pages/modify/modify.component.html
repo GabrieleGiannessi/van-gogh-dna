@@ -1,0 +1,38 @@
+<main class="flex-grow-1 pt-5">
+    <form [formGroup]="form" (submit)="onSubmit()">
+        <div class="container-fluid mt-4 shadow bg-white w-75 rounded-4 p-4">
+            <div class="mb-3">
+                <label for="documentTitle" class="form-label">Titolo</label>
+                <input type="text" class="form-control" id="documentTitle" name="title" formControlName="title"
+                    placeholder="Inserisci il titolo del documento">
+                @if (form.get('title')?.touched && form.get('title')?.invalid) {
+                <div class="text-danger small mt-1">
+                    Il titolo è obbligatorio.
+                </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="documentAuthor" class="form-label">Autore</label>
+                <input type="text" class="form-control" id="documentAuthor" name="author" formControlName="author"
+                    placeholder="Inserisci l'autore del documento">
+                @if (form.get('author')?.touched && form.get('author')?.invalid) {
+                <div class="text-danger small mt-1">
+                    L'autore è obbligatorio.
+                </div>
+                }
+            </div>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                @if (showSpinner()) {
+                <div class="spinner-border spinner-border-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                Caricamento
+                }
+                Carica documento
+            </button>
+        </div>
+    </form>
+</main>
+
+<ng-template #success> Modifiche effettuate! </ng-template>
+<ng-template #error> Errore nella modifica dei parametri del documento </ng-template>

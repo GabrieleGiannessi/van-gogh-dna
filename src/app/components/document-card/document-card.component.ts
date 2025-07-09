@@ -3,6 +3,7 @@ import { DatabaseService, documentType } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../services/toast.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-document-card',
   imports: [NgbDropdownModule],
@@ -14,6 +15,7 @@ export class DocumentCardComponent {
   authService = inject(AuthService)
   databaseService = inject(DatabaseService)
   toastService = inject(ToastService)
+  router = inject (Router)
 
   document = input.required<documentType>()
   deleted = output<string>()
