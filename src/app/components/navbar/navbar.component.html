@@ -1,50 +1,52 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand" (click)="router.navigateByUrl('/home')">
-      <span class="ms-2 d-none d-sm-inline" style="cursor: pointer;">VanGoghDna</span>
-    </a>
-    <!-- Pulsante menu in caso di schermo piccolo -->
-    <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Pulsante documenti e dropdown di login/logout -->
-    <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <div class="d-flex align-items-center">
-          @if (authService.isLogged()) {
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page">
-              <i class="bi bi-file-earmark-text me-1"></i>
-              Documenti
-            </a>
-          </li>
-          <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
-            <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
-              <i class="bi bi-list fs-5 text-primary"></i>
-            </a>
-            <div ngbDropdownMenu aria-labelledby="menuDropdown">
-              <button ngbDropdownItem (click)="this.router.navigateByUrl(`docs/${authService.subject()}`)">I miei
-                documenti</button>
-              <button ngbDropdownItem (click)="this.router.navigateByUrl(`upload`)">Carica documento</button>
-              <button ngbDropdownItem class="text-danger" (click)="logout()"> Logout</button>
-            </div>
-          </li>
-          }@else {
-          <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
-            <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
-              Login
-            </a>
-            <div class="text-center" ngbDropdownMenu aria-labelledby="loginDropdown">
-              <span class="text-secondary fs-6 p-1 p-1"> Sei admin? Autenticati con</span>
-              <button class="btn btn-warning w-75 border-0 m-2 p-2" NgbDropdownButtonItem (click)="login()">
-                <i class="bi bi-shield-lock me-1"></i> Keycloak</button>
-            </div>
-          </li>
-          }
-        </div>
-      </ul>
+<header>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" (click)="router.navigateByUrl('/home')">
+        <span class="ms-2 d-none d-sm-inline" style="cursor: pointer;">VanGoghDna</span>
+      </a>
+      <!-- Pulsante menu in caso di schermo piccolo -->
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Pulsante documenti e dropdown di login/logout -->
+      <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <div class="d-flex align-items-center">
+            @if (authService.isLogged()) {
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page">
+                <i class="bi bi-file-earmark-text me-1"></i>
+                Documenti
+              </a>
+            </li>
+            <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
+              <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
+                <i class="bi bi-list fs-5 text-primary"></i>
+              </a>
+              <div ngbDropdownMenu aria-labelledby="menuDropdown">
+                <button ngbDropdownItem (click)="this.router.navigateByUrl(`docs/${authService.subject()}`)">I miei
+                  documenti</button>
+                <button ngbDropdownItem (click)="this.router.navigateByUrl(`upload`)">Carica documento</button>
+                <button ngbDropdownItem class="text-danger" (click)="logout()"> Logout</button>
+              </div>
+            </li>
+            }@else {
+            <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
+              <a class="nav-link" id="loginDropdown" ngbDropdownToggle role="button" tabindex="0">
+                Login
+              </a>
+              <div class="text-center" ngbDropdownMenu aria-labelledby="loginDropdown">
+                <span class="text-secondary fs-6 p-1 p-1"> Sei admin? Autenticati con</span>
+                <button class="btn btn-warning w-75 border-0 m-2 p-2" NgbDropdownButtonItem (click)="login()">
+                  <i class="bi bi-shield-lock me-1"></i> Keycloak</button>
+              </div>
+            </li>
+            }
+          </div>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

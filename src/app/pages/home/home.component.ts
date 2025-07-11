@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, inject, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { SearchBarComponent } from "../../components/search-bar/search-bar.component";
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
 import { ActivatedRoute, Router } from '@angular/router';

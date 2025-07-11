@@ -1,4 +1,5 @@
-<div class="d-flex overlay-container ms-1 ps-2 py-1 rounded-5" [ngClass]="{'focused-container': focused()}">
+<div class="d-flex overlay-container ms-1 ps-2 py-1 rounded-5" [ngClass]="{'focused-container': focused()}"
+    (mouseenter)="searchBarService.currentSelectedIndex = -1">
     <div class="px-2 mt-1 text-muted w-100 text-start" (click)="handleClick()">
         {{ search() }}
     </div>

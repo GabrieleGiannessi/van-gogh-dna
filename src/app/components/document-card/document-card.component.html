@@ -1,27 +1,27 @@
-<div class="card h-100 shadow rounded-4 overflow-hidden">
-  <div class="row g-0 h-100">
+<div class="card h-100 shadow rounded-4 overflow-hidden" style="max-height: 250px;">
+  <div class="row g-0 h-100 align-items-stretch">
 
     <!-- Immagine anteprima -->
-    <div class="col-auto d-none d-sm-block">
-      @defer {
-        <img [src]="'http://localhost:8000/preview/' + document().doc_id"
-             alt="Anteprima PDF"
-             width="150"
-             height="200"
-             class="img-fluid object-fit-cover" />
-      } @loading {
-        <div class="placeholder-glow" style="width: 150px; height: 200px;">
-          <span class="placeholder col-12 rounded-start" style="width: 150px; height: 200px;"></span>
-        </div>
-      } @placeholder (minimum 500ms) {
-        <div class="placeholder-glow" style="width: 150px; height: 200px;">
-          <span class="placeholder col-12 rounded-start" style="width: 150px; height: 200px;"></span>
-        </div>
-      }
+    <div class="col-4 d-none d-sm-block h-100">
+      <div class="h-100 w-100 overflow-hidden">
+        @defer {
+          <img [src]="'http://localhost:8000/preview/' + document().doc_id"
+               alt="Anteprima PDF"
+               class="w-100 h-100 object-fit-cover" />
+        } @loading {
+          <div class="placeholder-glow h-100 w-100 rounded-circle">
+            <span class="placeholder col-12 rounded-start h-100 w-100 d-block"></span>
+          </div>
+        } @placeholder (minimum 500ms) {
+          <div class="placeholder-glow h-100 w-100 rounded-circle">
+            <span class="placeholder col-12 rounded-start h-100 w-100 d-block"></span>
+          </div>
+        }
+      </div>
     </div>
 
     <!-- Contenuto -->
-    <div class="col d-flex flex-column p-3">
+    <div class="col-12 col-sm-8 d-flex flex-column p-3">
 
       <!-- Titolo e dropdown -->
       <div class="d-flex align-items-start mb-2">
@@ -57,6 +57,6 @@
         </button>
       </div>
     </div>
+
   </div>
 </div>
-

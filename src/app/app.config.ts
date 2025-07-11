@@ -13,6 +13,7 @@ export const config: AuthConfig = {
   strictDiscoveryDocumentValidation: false, 
   clientId: 'van-gogh-dna',
   responseType: 'code',
+  //useSilentRefresh: true,
   scope: 'openid profile email',
   showDebugInformation: true, 
   disablePKCE: false,

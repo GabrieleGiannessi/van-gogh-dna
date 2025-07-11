@@ -28,8 +28,4 @@ export class DocumentsComponent {
     }
   })
 
-  degub = effect(() => console.log(this.userDocs.value())
-)
-
-
 }

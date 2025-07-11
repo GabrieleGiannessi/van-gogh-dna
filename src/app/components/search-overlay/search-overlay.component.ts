@@ -19,8 +19,6 @@ export class SearchOverlayComponent {
   overlay = model.required<boolean>();
   currentSearch = model.required<string>();
 
-  focusdebug = effect(() => console.log(`item ${this.search()}, focus ${this.focused()}`))
-
   handleClick() {
     this.overlay.set(false);
     this.currentSearch.set(this.search())

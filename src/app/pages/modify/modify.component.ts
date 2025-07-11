@@ -1,9 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DatabaseService, documentType } from '../../services/database.service';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { computeStyles } from '@popperjs/core';
+import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-modify',
