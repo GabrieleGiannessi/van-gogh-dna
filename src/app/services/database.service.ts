@@ -19,6 +19,10 @@ export class DatabaseService {
     return this.http.get<documentType[]>(`${this.apiUrl}/documents/`);
   } 
 
+  getDocByID (doc_id: string): Observable<documentType>{
+    return this.http.get<documentType>(`${this.apiUrl}/documents/${doc_id}`)
+  }
+
   getDocsBySubject(sub: string): Observable<documentType[]> {
     return this.http.get<documentType[]>(`${this.apiUrl}/documents/sub/${sub}`);
   }
@@ -27,19 +31,19 @@ export class DatabaseService {
     return this.http.get<documentType[]>(`${this.apiUrl}/search?q=${query}`);
   }
 
-  downloadPdf(fileId: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/download/${fileId}`, {
+  downloadPdf(doc_id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/download/${doc_id}`, {
       responseType: 'blob'
     });
   }
 
-  openPdfInNewTab(fileId: string) {
-    const url = `${this.apiUrl}/download/${fileId}?download=false`;
-    window.open(url, '_blank');
+  openPdfInNewTab(doc_id: string) {
+    const url = `${this.apiUrl}/download/${doc_id}?download=false`;
+    window.open(url, '_blank'); 
   }
 
-  showPreviewFile(fileId: string) {
-    this.http.get(`${this.apiUrl}/preview/${fileId}`)
+  showPreviewFile(doc_id: string) {
+    this.http.get(`${this.apiUrl}/preview/${doc_id}`)
   }
 
   getDocumentPages(fileId: string): Observable<pageType[]> {
@@ -68,6 +72,11 @@ export class DatabaseService {
 
   deleteDocument(doc_id: string): Observable<any>{
     return this.http.delete(`${this.apiUrl}/documents/${doc_id}`)
+  }
+
+  updateDocument(doc_id: string, doc: Partial<documentType>){
+    return this.http.patch(`${this.apiUrl}/documents/${doc_id}`,
+      doc)
   }
 
 }

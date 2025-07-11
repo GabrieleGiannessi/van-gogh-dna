@@ -2,34 +2,54 @@
     <form [formGroup]="form" (submit)="onSubmit()">
         <div class="container-fluid mt-4 shadow bg-white w-75 rounded-4 p-4">
             <div class="mb-3">
+                @if (doc.isLoading()) {
+                <p class="placeholder-glow p-1">
+                    <span class="placeholder col-6"></span>
+                </p>
+                <p class="placeholder-glow p-1">
+                    <span class="placeholder col-12 placeholder-lg"></span>
+                </p>
+                } @else {
                 <label for="documentTitle" class="form-label">Titolo</label>
                 <input type="text" class="form-control" id="documentTitle" name="title" formControlName="title"
                     placeholder="Inserisci il titolo del documento">
-                @if (form.get('title')?.touched && form.get('title')?.invalid) {
+                @if (form.get('title')?.invalid) {
                 <div class="text-danger small mt-1">
-                    Il titolo è obbligatorio.
+                    Il titolo non è corretto.
                 </div>
+                }
                 }
             </div>
             <div class="mb-3">
+                @if (doc.isLoading()) {
+                <p class="placeholder-glow p-1">
+                    <span class="placeholder col-6"></span>
+                </p>
+                <p class="placeholder-glow p-1">
+                    <span class="placeholder col-12 placeholder-lg"></span>
+                </p>
+                } @else {
                 <label for="documentAuthor" class="form-label">Autore</label>
                 <input type="text" class="form-control" id="documentAuthor" name="author" formControlName="author"
                     placeholder="Inserisci l'autore del documento">
-                @if (form.get('author')?.touched && form.get('author')?.invalid) {
+                @if (form.get('author')?.invalid) {
                 <div class="text-danger small mt-1">
-                    L'autore è obbligatorio.
+                    L'autore non è corretto.
                 </div>
+                }
                 }
             </div>
-            <button type="submit" class="btn btn-primary d-flex align-items-center">
-                @if (showSpinner()) {
-                <div class="spinner-border spinner-border-sm me-2" role="status">
+            @if (showSpinner()) {
+            <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center">
+                <div class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                Caricamento
-                }
-                Carica documento
             </button>
+            }@else {
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                Modifica documento
+            </button>
+            }
         </div>
     </form>
 </main>
