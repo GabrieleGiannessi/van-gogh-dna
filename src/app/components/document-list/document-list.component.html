@@ -7,7 +7,7 @@
 }@else {
 @defer () {
 <div class="container-fluid w-100 mt-3 px-3">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 py-2">
         @for (item of docs(); track $index) {
         <div class="col h-100">
             <app-document-card [document]="item" (deleted)="onDelete($event)"></app-document-card>

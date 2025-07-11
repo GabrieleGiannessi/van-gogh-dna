@@ -13,8 +13,6 @@ export class DatabaseService {
   http = inject(HttpClient)
   authService = inject(AuthService)
 
-  documents = toSignal(this.getDocs(), { initialValue: []})
-  
   getDocs(): Observable<documentType[]>{
     return this.http.get<documentType[]>(`${this.apiUrl}/documents/`);
   } 

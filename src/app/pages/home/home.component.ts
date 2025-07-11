@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, effect, HostListener, inject, signal } from '@angular/core';
 import { SearchBarComponent } from "../../components/search-bar/search-bar.component";
 import { DocumentListComponent } from "../../components/document-list/document-list.component";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,23 +24,16 @@ export class HomeComponent {
 
   showOverlay = this.searchBarService.showOverlay;
   searches = this.searchBarService.searches;
-  currentSearch = signal<string>('')
+  currentSearch = signal<string|undefined>(this.route.snapshot.queryParamMap.get('s') ?? undefined)
 
-  constructor() {
-    this.route.queryParamMap.subscribe(params => {
-      const search = params.get('s');
-      if (search) {
-        this.currentSearch.set(search)
-      }
-    });
-  }
-
-  queryDocs = rxResource<documentType[], string>({
-    request: () => this.currentSearch(),
+  queryDocs = rxResource<documentType[], string | undefined>({
+    request: () => (this.currentSearch()),
     loader: ({ request }) => {
-      return this.databaseService.getDocsByQuery(request)
+      return request.trim() === ":all" ? this.databaseService.getDocs() : this.databaseService.getDocsByQuery(request!)  
     }
   })
+
+  
 
   get recentSearches() {
     return this.searches().slice(0, 5);

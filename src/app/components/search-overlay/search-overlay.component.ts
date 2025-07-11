@@ -12,12 +12,12 @@ import { CommonModule } from '@angular/common';
 export class SearchOverlayComponent {
 
   searchBarService = inject(SearchBarService)
-  router = inject (Router)
+  router = inject(Router)
 
   focused = input.required<boolean>()
   search = model.required<string>();
   overlay = model.required<boolean>();
-  currentSearch = model.required<string>();
+  currentSearch = model.required<string | undefined>();
 
   handleClick() {
     this.overlay.set(false);
@@ -26,7 +26,7 @@ export class SearchOverlayComponent {
     this.router.navigate(['home'], { queryParams: { s: this.search() } })
   }
 
-  handleDeleteSearch() { 
+  handleDeleteSearch() {
     this.overlay.set(true);
     this.searchBarService.removeResearch(this.search())
   }
